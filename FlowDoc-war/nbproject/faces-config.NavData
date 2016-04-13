@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="index.xhtml" x="1262" y="268" zoom="true"/>
+        <Node id="jsf/plankton/plankton_index.xhtml" x="483" y="559" zoom="true"/>
+        <Node id="jsf/plankton/update_document.xhtml" x="697" y="733" zoom="true"/>
+        <Node id="jsf/plankton/show_document.xhtml" x="28" y="689" zoom="true"/>
+        <Node id="jsf/plankton/set_approver.xhtml" x="264" y="737" zoom="true"/>
+        <Node id="jsf/admin/remove_office.xhtml" x="2739" y="604" zoom="true"/>
+        <Node id="jsf/approver/approver_index.xhtml" x="1248" y="631" zoom="true"/>
+        <Node id="jsf/plankton/create_document.xhtml" x="916" y="703" zoom="true"/>
+        <Node id="jsf/admin/remove_user.xhtml" x="2075" y="599" zoom="true"/>
+        <Node id="jsf/plankton/remove_document.xhtml" x="457" y="774" zoom="true"/>
+        <Node id="jsf/admin/update_user.xhtml" x="1880" y="649" zoom="true"/>
+        <Node id="jsf/admin/create_user.xhtml" x="1742" y="602" zoom="true"/>
+        <Node id="jsf/template/template.xhtml" x="1214" y="236" zoom="true"/>
+        <Node id="jsf/admin/update_office.xhtml" x="2590" y="646" zoom="true"/>
+        <Node id="jsf/approver/show_document.xhtml" x="1229" y="765" zoom="true"/>
+        <Node id="jsf/admin/create_office.xhtml" x="2365" y="609" zoom="true"/>
+        <Node id="jsf/admin/admin_index.xhtml" x="2177" y="393" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

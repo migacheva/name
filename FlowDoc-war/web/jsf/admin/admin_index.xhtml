@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../template/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="top">
+        Панель администратора
+    </ui:define>
+
+    <ui:define name="left">
+    </ui:define>
+
+    <ui:define name="right">
+        <h:form>
+            <h:commandButton action="#{adminController.createUser()}" value="Добавить пользователя"/>
+            <h:commandButton action="#{adminController.createOffice()}" value="Добавить отдел"/>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <h1><h:outputText value="Список отделов"/></h1>
+            <h:dataTable value="#{adminController.allOffices}" var="item">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Name"/>
+                    </f:facet>
+                    <h:outputText value="#{item.name}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Редактирование"/>
+                    </f:facet>
+                    <h:commandButton action="#{adminController.updateOffice(item.id)}" value="Редактировать"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Удаление"/>
+                    </f:facet>
+                    <h:commandButton action="#{adminController.removeOffice(item.id)}" value="Удалить"/>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+        <h:form>
+            <h1><h:outputText value="Список сотрудников"/></h1>
+            <h:dataTable value="#{adminController.allUsers}" var="item">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Name"/>
+                    </f:facet>
+                    <h:outputText value="#{item.name}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Role"/>
+                    </f:facet>
+                    <h:outputText value="#{item.role.name}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Редактирование"/>
+                    </f:facet>
+                    <h:commandButton action="#{adminController.updateUser(item.id)}" value="Редактировать"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Удаление"/>
+                    </f:facet>
+                    <h:commandButton action="#{adminController.removeUser(item.id)}" value="Удалить"/>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>
