@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "offices")
@@ -17,6 +18,7 @@ public class Office implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotNull
+    @Size (min = 5, max = 20)
     private String name;
     @OneToMany(mappedBy = "office")
     private List<DocUser> users;

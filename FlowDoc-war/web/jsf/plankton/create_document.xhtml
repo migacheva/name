@@ -18,7 +18,7 @@
                 <h:outputLabel value="Name:" for="name" />
                 <h:inputText id="name" value="#{planktonController.currentDocument.name}" title="Name"/>
                 <h:outputLabel value="Content:" for="content" />
-                <h:inputText id="content" value="#{planktonController.currentDocument.content}" title="Content" />
+                <h:inputTextarea id="content" value="#{planktonController.currentDocument.content}" title="Content" />
             </h:panelGrid>
             <h:commandButton action="#{planktonController.createDocumentConfirm()}" value="Создать" class="button"/>
         </h:form>

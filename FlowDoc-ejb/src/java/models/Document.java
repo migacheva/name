@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "documents")
@@ -21,8 +22,10 @@ public class Document implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotNull
+    @Size (min = 5, max = 50)
     private String name;
     @NotNull
+    @Size (min = 10, max = 2000)
     private String content;
     @NotNull
     @Temporal(TemporalType.DATE)
