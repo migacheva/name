@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import models.DocUser;
 import models.Document;
+import models.DocumentStatus;
 import models.Office;
 import models.Role;
 
@@ -24,7 +25,7 @@ public class FlowDocDAO implements FlowDocDAOLocal {
 
     @Override
     public List<DocUser> getAllApprovers() {
-        Query query = em.createQuery("SELECT a FROM DocUser a WHERE a.role.name='Подтверждающий'", DocUser.class);
+        Query query = em.createQuery("SELECT a FROM DocUser a WHERE a.role.name='Утверждающий'", DocUser.class);
         return query.getResultList();
     }
 
@@ -55,6 +56,11 @@ public class FlowDocDAO implements FlowDocDAOLocal {
     }
 
     @Override
+    public Role getRoleById(int id) {
+        return em.find(Role.class, id);
+    }
+    
+    @Override
     public List<Office> getAllOffice() {
         Query query = em.createQuery("SELECT o FROM Office o", Office.class);
         return query.getResultList();
@@ -81,8 +87,16 @@ public class FlowDocDAO implements FlowDocDAOLocal {
     }
 
     @Override
-    public List<Document> getAllDocuments() {
-        Query query = em.createQuery("SELECT d FROM Document d", Document.class);
+    public List<Document> getDocumentsByAuthor(int id) {
+        Query query = em.createQuery("SELECT d FROM Document d WHERE d.author.id=?1", Document.class);
+        query.setParameter(1, id);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Document> getDocumentsByApprover(int id) {
+        Query query = em.createQuery("SELECT d FROM Document d WHERE d.approver.id=?1", Document.class);
+        query.setParameter(1, id);
         return query.getResultList();
     }
 
@@ -104,5 +118,12 @@ public class FlowDocDAO implements FlowDocDAOLocal {
     @Override
     public void removeDocument(Document document) {
         em.remove(em.merge(document));
+    }
+
+    @Override
+    public DocumentStatus getDocumentStatusByName(String name) {
+        Query query = em.createQuery("SELECT s FROM DocumentStatus s WHERE s.name=?1", DocumentStatus.class);
+        query.setParameter(1, name);
+        return (DocumentStatus) query.getSingleResult();
     }
 }

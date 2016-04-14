@@ -6,21 +6,20 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="title">
-        Удаление отдела 
+        Смена отдела пользователя
     </ui:define>
 
     <ui:define name="header">
-        Удаление отдела 
+        Смена отдела пользователя
     </ui:define>
 
     <ui:define name="content">
         <h:form>
-            <h:panelGrid columns="2">
-                <h:outputText value="Name:"/>
-                <h:outputText value="#{adminController.currentOffice.name}" title="Name"/>
-            </h:panelGrid>
-            <h:commandButton action="#{adminController.removeOfficeConfirm()}" value="Удалить" class="button"/>
+            <h:selectOneMenu value="#{adminController.officeId}">
+                <f:selectItems value="#{adminController.allOffices}" var="office" 
+                               itemLabel="#{office.name}" itemValue="#{office.id}"/>
+            </h:selectOneMenu>
+            <h:commandButton action="#{adminController.changeUserOfficeConfirm()}" value="Сменить"/>
         </h:form>
-        <h:button outcome="index" value="Вернуться" class="button"/>
     </ui:define>
 </ui:composition>

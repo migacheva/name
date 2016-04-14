@@ -6,29 +6,16 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <h:outputStylesheet name="./css/default.css"/>
-        <h:outputStylesheet name="./css/cssLayout.css"/>
-        <title>Facelets Template</title>
+        <h:outputStylesheet name="css/style.css"/>
+        <title><ui:insert name="title">Заголовок страницы</ui:insert></title>
     </h:head>
 
     <h:body>
-
-        <div id="top">
-            <ui:insert name="top">Top</ui:insert>
+        <div id="header">
+            <ui:insert name="header">Header</ui:insert>
         </div>
-        <div>
-            <div id="left">
-                <ui:insert name="left">Left</ui:insert>
-            </div>
-            <div>
-                <div id="right">
-                    <ui:insert name="right">Right</ui:insert>
-                </div>
-                <div id="content" class="right_content">
-                    <ui:insert name="content">Content</ui:insert>
-                </div>
-            </div>
-        </div>        
+        <div id="content">
+            <ui:insert name="content">Content</ui:insert>
+        </div>   
     </h:body>
-
 </html>

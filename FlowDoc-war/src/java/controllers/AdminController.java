@@ -18,6 +18,8 @@ public class AdminController implements Serializable {
     private AdminService adminService;
     private Office currentOffice;
     private DocUser currentUser;
+    private int roleId;
+    private int officeId;
 
     public Office getCurrentOffice() {
         return currentOffice;
@@ -33,6 +35,22 @@ public class AdminController implements Serializable {
 
     public void setCurrentUser(DocUser currentUser) {
         this.currentUser = currentUser;
+    }
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
+
+    public int getOfficeId() {
+        return officeId;
+    }
+
+    public void setOfficeId(int officeId) {
+        this.officeId = officeId;
     }
 
     public List<Office> getAllOffices() {
@@ -53,7 +71,7 @@ public class AdminController implements Serializable {
     }
 
     public String createUserConfirm() {
-        adminService.createUser(currentUser);
+        adminService.createUser(currentUser, roleId);
         currentUser = null;
         return "index";
     }
@@ -69,13 +87,24 @@ public class AdminController implements Serializable {
         return "index";
     }
 
-    public String updateUser(int id) {
+    public String changeUserRole(int id) {
         currentUser = adminService.getUserById(id);
-        return "update_user";
+        return "change_role";
     }
 
-    public String updateUserConfirm() {
-        adminService.updateUser(currentUser);
+    public String changeUserRoleConfirm() {
+        adminService.changeUserRole(currentUser, roleId);
+        currentUser = null;
+        return "index";
+    }
+
+    public String changeUserOffice(int id) {
+        currentUser = adminService.getUserById(id);
+        return "change_office";
+    }
+
+    public String changeUserOfficeConfirm() {
+        adminService.changeUserOffice(currentUser, officeId);
         currentUser = null;
         return "index";
     }
@@ -104,7 +133,7 @@ public class AdminController implements Serializable {
 
     public String removeOffice(int id) {
         currentOffice = adminService.getOfficeById(id);
-        return "create_user";
+        return "remove_office";
     }
 
     public String removeOfficeConfirm() {

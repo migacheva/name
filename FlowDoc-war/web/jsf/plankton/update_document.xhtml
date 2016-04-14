@@ -4,15 +4,12 @@
                 template="./../template/template.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
 
-    <ui:define name="top">
+    <ui:define name="title">
         Редактирование документа
     </ui:define>
 
-    <ui:define name="left">
-    </ui:define>
-
-    <ui:define name="right">
-        <h:button outcome="index" value="Вернуться"/>
+    <ui:define name="header">
+        Редактирование документа
     </ui:define>
 
     <ui:define name="content">
@@ -23,7 +20,8 @@
                 <h:outputLabel value="Content:" for="content" />
                 <h:inputText id="content" value="#{planktonController.currentDocument.content}" title="Content" />
             </h:panelGrid>
-            <h:commandButton action="#{planktonController.upateDocumentConfirm()}" value="Сохранить"/>
+            <h:commandButton action="#{planktonController.upateDocumentConfirm()}" value="Сохранить" class="button"/>
         </h:form>
+        <h:button outcome="index" value="Вернуться" class="button"/>
     </ui:define>
 </ui:composition>

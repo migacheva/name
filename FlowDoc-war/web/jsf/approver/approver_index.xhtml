@@ -6,21 +6,17 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:define name="top">
+    <ui:define name="title">
         Список документов, поданных на утверждение
     </ui:define>
 
-    <ui:define name="left">
-
-    </ui:define>
-
-    <ui:define name="right">
-
+    <ui:define name="header">
+        Список документов, поданных на утверждение
     </ui:define>
 
     <ui:define name="content">
         <h:form>
-            <h:dataTable value="#{approverController.documets}" var="document">
+            <h:dataTable value="#{approverController.documets}" var="document" class="data_table">
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Name"/>
@@ -53,15 +49,16 @@
                     <f:facet name="header">
                         <h:outputText value="Approve"/>
                     </f:facet>
-                    <h:commandButton action="#{approverController.approve(document.id)}" value="approve"/>
+                    <h:commandButton action="#{approverController.approve(document.id)}" value="approve" class="button"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Reject"/>
                     </f:facet>
-                    <h:commandButton action="#{approverController.reject(document.id)}" value="reject"/>
+                    <h:commandButton action="#{approverController.reject(document.id)}" value="reject" class="button"/>
                 </h:column>
             </h:dataTable>
         </h:form>
+        <h:button outcome="logout" value="На главную" class="button"/>
     </ui:define>
 </ui:composition>

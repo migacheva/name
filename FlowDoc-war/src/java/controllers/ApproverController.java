@@ -21,7 +21,7 @@ public class ApproverController implements Serializable{
 
     @PostConstruct
     private void onCreate() {
-        currentUser = new DocUser();
+        currentUser = approverService.getUserById(2);
     }
     
     public DocUser getCurrentUser() {
@@ -41,11 +41,11 @@ public class ApproverController implements Serializable{
     }
 
     public List<Document> getDocumets() {
-        return approverService.getDocumetsByApprover(currentUser);
+        return approverService.getDocumetsByApprover(currentUser.getId());
     }
     
     public String showDocument(int id) {
-        currentDocument = approverService.getDocumetsByApprover(currentUser).get(0);
+        currentDocument = approverService.getDocumentById(id);
         return "show";
     }
 
@@ -56,7 +56,4 @@ public class ApproverController implements Serializable{
     public void reject(int id) {
         approverService.reject(id);
     }
-    
-    
-    
 }

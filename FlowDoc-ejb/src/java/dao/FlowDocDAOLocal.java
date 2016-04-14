@@ -4,6 +4,7 @@ import java.util.List;
 import javax.ejb.Local;
 import models.DocUser;
 import models.Document;
+import models.DocumentStatus;
 import models.Office;
 import models.Role;
 
@@ -16,6 +17,7 @@ public interface FlowDocDAOLocal {
     void createUser(DocUser user);
     void updateUser(DocUser user);
     void removeUser(DocUser user);
+    Role getRoleById(int id);
     
     List<Office> getAllOffice();
     Office getOfficeById(int id);
@@ -23,9 +25,11 @@ public interface FlowDocDAOLocal {
     void updateOffice(Office office);
     void removeOffice(Office office);
     
-    List<Document> getAllDocuments();
+    List<Document> getDocumentsByAuthor(int id);
+    List<Document> getDocumentsByApprover(int id);
     Document getDocumentById(int id);
     void createDocument(Document document);
     void updateDocument(Document document);
     void removeDocument(Document document);
+    DocumentStatus getDocumentStatusByName(String name);
 }

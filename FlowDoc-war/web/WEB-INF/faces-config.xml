@@ -8,17 +8,17 @@
         <navigation-case>
             <from-outcome>plankton</from-outcome>
             <to-view-id>/jsf/plankton/plankton_index.xhtml</to-view-id>
-            <redirect/>
+            <redirect/> 
         </navigation-case>
         <navigation-case>
             <from-outcome>approver</from-outcome>
             <to-view-id>/jsf/approver/approver_index.xhtml</to-view-id>
-            <redirect/>
+            <redirect/> 
         </navigation-case>
         <navigation-case>
             <from-outcome>admin</from-outcome>
             <to-view-id>/jsf/admin/admin_index.xhtml</to-view-id>
-            <redirect/>
+            <redirect/> 
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -26,8 +26,12 @@
         <navigation-case>
             <from-outcome>show</from-outcome>
             <to-view-id>/jsf/approver/show_document.xhtml</to-view-id>
-            
-            <redirect/>
+            <redirect/> 
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect/> 
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -35,8 +39,7 @@
         <navigation-case>
             <from-outcome>index</from-outcome>
             <to-view-id>/jsf/approver/approver_index.xhtml</to-view-id>
-            
-            <redirect/>
+            <redirect/> 
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -44,29 +47,33 @@
         <navigation-case>
             <from-outcome>create</from-outcome>
             <to-view-id>/jsf/plankton/create_document.xhtml</to-view-id>
-            
-            <redirect/>
+            <redirect/> 
         </navigation-case>
         <navigation-case>
             <from-outcome>update</from-outcome>
             <to-view-id>/jsf/plankton/update_document.xhtml</to-view-id>
-            <redirect/>
+            <redirect/> 
         </navigation-case>
         <navigation-case>
             <from-outcome>set_approver</from-outcome>
             <to-view-id>/jsf/plankton/set_approver.xhtml</to-view-id>
-            <redirect/>
+            
+            <redirect/> 
         </navigation-case>
         <navigation-case>
             <from-outcome>remove</from-outcome>
             <to-view-id>/jsf/plankton/remove_document.xhtml</to-view-id>
-            <redirect/>
+            <redirect/> 
         </navigation-case>
         <navigation-case>
             <from-outcome>show</from-outcome>
             <to-view-id>/jsf/plankton/show_document.xhtml</to-view-id>
-            
-            <redirect/>
+            <redirect/> 
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect/> 
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -74,7 +81,7 @@
         <navigation-case>
             <from-outcome>index</from-outcome>
             <to-view-id>/jsf/plankton/plankton_index.xhtml</to-view-id>
-            <redirect/>
+            <redirect/> 
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -82,8 +89,7 @@
         <navigation-case>
             <from-outcome>index</from-outcome>
             <to-view-id>/jsf/plankton/plankton_index.xhtml</to-view-id>
-            
-            <redirect/>
+            <redirect/> 
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -91,8 +97,7 @@
         <navigation-case>
             <from-outcome>index</from-outcome>
             <to-view-id>/jsf/plankton/plankton_index.xhtml</to-view-id>
-            
-            <redirect/>
+            <redirect/> 
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -100,7 +105,7 @@
         <navigation-case>
             <from-outcome>index</from-outcome>
             <to-view-id>/jsf/plankton/plankton_index.xhtml</to-view-id>
-            <redirect/>
+            <redirect/> 
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -108,7 +113,7 @@
         <navigation-case>
             <from-outcome>index</from-outcome>
             <to-view-id>/jsf/plankton/plankton_index.xhtml</to-view-id>
-            <redirect/>
+            <redirect/> 
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -116,31 +121,42 @@
         <navigation-case>
             <from-outcome>create_user</from-outcome>
             <to-view-id>/jsf/admin/create_user.xhtml</to-view-id>
-            <redirect/>
+            <redirect/> 
         </navigation-case>
         <navigation-case>
             <from-outcome>create_office</from-outcome>
             <to-view-id>/jsf/admin/create_office.xhtml</to-view-id>
-            <redirect/>
+            <redirect/> 
         </navigation-case>
         <navigation-case>
             <from-outcome>update_office</from-outcome>
             <to-view-id>/jsf/admin/update_office.xhtml</to-view-id>
-            <redirect/>
+            <redirect/> 
         </navigation-case>
         <navigation-case>
             <from-outcome>remove_user</from-outcome>
             <to-view-id>/jsf/admin/remove_user.xhtml</to-view-id>
-            <redirect/>
+            <redirect/> 
         </navigation-case>
         <navigation-case>
             <from-outcome>remove_office</from-outcome>
             <to-view-id>/jsf/admin/remove_office.xhtml</to-view-id>
-            <redirect/>
+            <redirect/> 
         </navigation-case>
         <navigation-case>
-            <from-outcome>update_user</from-outcome>
-            <to-view-id>/jsf/admin/update_user.xhtml</to-view-id>
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect/> 
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>change_role</from-outcome>
+            <to-view-id>/jsf/admin/change_role.xhtml</to-view-id>
+            <redirect/> 
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>change_office</from-outcome>
+            <to-view-id>/jsf/admin/change_office.xhtml</to-view-id>
+            <redirect/> 
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -148,7 +164,7 @@
         <navigation-case>
             <from-outcome>index</from-outcome>
             <to-view-id>/jsf/admin/admin_index.xhtml</to-view-id>
-            <redirect/>
+            <redirect/> 
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -156,7 +172,7 @@
         <navigation-case>
             <from-outcome>index</from-outcome>
             <to-view-id>/jsf/admin/admin_index.xhtml</to-view-id>
-            <redirect/>
+            <redirect/> 
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -164,7 +180,7 @@
         <navigation-case>
             <from-outcome>index</from-outcome>
             <to-view-id>/jsf/admin/admin_index.xhtml</to-view-id>
-            <redirect/>
+            <redirect/> 
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -172,7 +188,7 @@
         <navigation-case>
             <from-outcome>index</from-outcome>
             <to-view-id>/jsf/admin/admin_index.xhtml</to-view-id>
-            <redirect/>
+            <redirect/> 
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -180,15 +196,23 @@
         <navigation-case>
             <from-outcome>index</from-outcome>
             <to-view-id>/jsf/admin/admin_index.xhtml</to-view-id>
-            <redirect/>
+            <redirect/> 
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/jsf/admin/update_user.xhtml</from-view-id>
+        <from-view-id>/jsf/admin/change_office.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>index</from-outcome>
             <to-view-id>/jsf/admin/admin_index.xhtml</to-view-id>
-            <redirect/>
+            <redirect/> 
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/jsf/admin/change_role.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>index</from-outcome>
+            <to-view-id>/jsf/admin/admin_index.xhtml</to-view-id>
+            <redirect/> 
         </navigation-case>
     </navigation-rule>
 </faces-config>

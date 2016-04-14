@@ -5,28 +5,29 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:define name="top">
+    <ui:define name="title">
         Создание сотрудника
     </ui:define>
 
-    <ui:define name="left">
+    <ui:define name="header">
+        Создание сотрудника
     </ui:define>
-
-    <ui:define name="right">
-        <h:button outcome="index" value="Вернуться"/>
-    </ui:define>
+    
     <ui:define name="content">
         <h:form>
             <h:panelGrid columns="2">
                 <h:outputLabel value="Name:" for="name" />
                 <h:inputText id="name" value="#{adminController.currentUser.name}" title="Name" />
+                <h:outputLabel value="Password:" for="password" />
+                <h:inputSecret id="passowrd" value="#{adminController.currentUser.password}" title="Password" />
                 <h:outputLabel value="Role:" for="role" />
-                <h:selectOneMenu id="role" value="#{adminController.currentUser.role}" title="Role" >
+                <h:selectOneMenu id="role" value="#{adminController.roleId}" title="Role" >
                     <f:selectItems value="#{adminController.allRoles}" var="role" 
                                    itemLabel="#{role.name}" itemValue="#{role.id}"/>
                 </h:selectOneMenu>
             </h:panelGrid>
-            <h:commandButton action="#{adminController.createUserConfirm()}" value="Создать"/>
+            <h:commandButton action="#{adminController.createUserConfirm()}" value="Создать" class="button"/>
         </h:form>
+        <h:button outcome="index" value="Вернуться" class="button"/>
     </ui:define>
 </ui:composition>

@@ -3,6 +3,7 @@ package controllers;
 import ejb.PlanktonService;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -19,6 +20,11 @@ public class PlanktonController implements Serializable {
     private Document currentDocument;
     private int chosenApproverId;
 
+    @PostConstruct
+    private void onCreate() {
+        currentUser = planktonService.getUserById(1);
+    }
+    
     public DocUser getCurrentUser() {
         return currentUser;
     }
@@ -44,7 +50,7 @@ public class PlanktonController implements Serializable {
     }
     
     public List<Document> getDocuments() {
-        return planktonService.getDocumentsByAuthor(currentUser);
+        return planktonService.getDocumentsByAuthor(currentUser.getId());
     }
 
     public List<DocUser> getAllApprovers() {
@@ -52,7 +58,7 @@ public class PlanktonController implements Serializable {
     }
     
     public String showDocument(int id) {
-        currentDocument = planktonService.getDocumentById(id, currentUser);
+        currentDocument = planktonService.getDocumentById(id);
         return "show";
     }
     
@@ -71,7 +77,7 @@ public class PlanktonController implements Serializable {
     }
 
     public String upateDocument(int id) {
-        this.currentDocument = planktonService.getDocumentById(id, currentUser);
+        this.currentDocument = planktonService.getDocumentById(id);
         return "update";
     }
 
@@ -82,7 +88,7 @@ public class PlanktonController implements Serializable {
     }
     
     public String setApprover(int id) {
-        this.currentDocument = planktonService.getDocumentById(id, currentUser);
+        this.currentDocument = planktonService.getDocumentById(id);
         return "set_approver";
     }
     
@@ -92,7 +98,7 @@ public class PlanktonController implements Serializable {
     }
 
     public String removeDocument(int id) {
-        this.currentDocument = planktonService.getDocumentById(id, currentUser);
+        this.currentDocument = planktonService.getDocumentById(id);
         return "remove";
     }
 

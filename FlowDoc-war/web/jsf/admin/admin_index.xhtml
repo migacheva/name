@@ -6,24 +6,18 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:define name="top">
+    <ui:define name="title">
         Панель администратора
     </ui:define>
 
-    <ui:define name="left">
-    </ui:define>
-
-    <ui:define name="right">
-        <h:form>
-            <h:commandButton action="#{adminController.createUser()}" value="Добавить пользователя"/>
-            <h:commandButton action="#{adminController.createOffice()}" value="Добавить отдел"/>
-        </h:form>
+    <ui:define name="header">
+        Панель администратора
     </ui:define>
 
     <ui:define name="content">
         <h:form>
             <h1><h:outputText value="Список отделов"/></h1>
-            <h:dataTable value="#{adminController.allOffices}" var="item">
+            <h:dataTable value="#{adminController.allOffices}" var="item" class="data_table">
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Name"/>
@@ -34,19 +28,22 @@
                     <f:facet name="header">
                         <h:outputText value="Редактирование"/>
                     </f:facet>
-                    <h:commandButton action="#{adminController.updateOffice(item.id)}" value="Редактировать"/>
+                    <h:commandButton action="#{adminController.updateOffice(item.id)}" value="Редактировать" class="button"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Удаление"/>
                     </f:facet>
-                    <h:commandButton action="#{adminController.removeOffice(item.id)}" value="Удалить"/>
+                    <h:commandButton action="#{adminController.removeOffice(item.id)}" value="Удалить" class="button"/>
                 </h:column>
             </h:dataTable>
         </h:form>
         <h:form>
+            <h:commandButton action="#{adminController.createOffice()}" value="Добавить отдел" class="button"/>
+        </h:form>
+        <h:form>
             <h1><h:outputText value="Список сотрудников"/></h1>
-            <h:dataTable value="#{adminController.allUsers}" var="item">
+            <h:dataTable value="#{adminController.allUsers}" var="item" class="data_table">
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Name"/>
@@ -55,23 +52,39 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">
-                        <h:outputText value="Role"/>
+                        <h:outputText value="Роль"/>
                     </f:facet>
                     <h:outputText value="#{item.role.name}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">
-                        <h:outputText value="Редактирование"/>
+                        <h:outputText value="Отдел"/>
                     </f:facet>
-                    <h:commandButton action="#{adminController.updateUser(item.id)}" value="Редактировать"/>
+                    <h:outputText value="#{item.office.name}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Смена роли"/>
+                    </f:facet>
+                    <h:commandButton action="#{adminController.changeUserRole(item.id)}" value="Сменить роль" class="button"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Смена отедла"/>
+                    </f:facet>
+                    <h:commandButton action="#{adminController.changeUserOffice(item.id)}" value="Сменить отдел" class="button"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Удаление"/>
                     </f:facet>
-                    <h:commandButton action="#{adminController.removeUser(item.id)}" value="Удалить"/>
+                    <h:commandButton action="#{adminController.removeUser(item.id)}" value="Удалить" class="button"/>
                 </h:column>
             </h:dataTable>
         </h:form>
+        <h:form>
+            <h:commandButton action="#{adminController.createUser()}" value="Добавить пользователя" class="button"/>
+        </h:form>
+        <h:button outcome="logout" value="На главную" class="button"/>
     </ui:define>
 </ui:composition>

@@ -1,14 +1,35 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        <h:button outcome="plankton" value="Я планктон"/>
-        <h:button outcome="approver" value="Я апрувер"/>
-        <h:button outcome="admin" value="Я админ"/>
-    </h:body>
-</html>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./jsf/template/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
 
+    <ui:define name="title">
+        Главная
+    </ui:define>
+
+    <ui:define name="header">
+        Главная страница
+    </ui:define>
+
+    <ui:define name="content">
+        <table>
+            <tr>
+                <td>
+                    <h:button outcome="plankton" value="Я планктон" class="button"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h:button outcome="approver" value="Я апрувер" class="button"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h:button outcome="admin" value="Я админ" class="button"/>
+                </td>
+            </tr>
+        </table>
+    </ui:define>
+</ui:composition>

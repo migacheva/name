@@ -1,12 +1,10 @@
 package ejb;
 
 import dao.FlowDocDAOLocal;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import models.DocUser;
 import models.Document;
 import models.DocumentStatus;
@@ -17,29 +15,31 @@ public class ApproverService {
 
     @EJB
     private FlowDocDAOLocal dao;
+
+    public DocUser getUserById(int id) {
+        return dao.getUserById(id);
+    }
     
-    public List<Document> getDocumetsByApprover(DocUser approver) {
-        DocUser author = new DocUser();
-        author.setName("Аня");
-        DocumentStatus status = new DocumentStatus();
-        status.setName("На утверждении");
-        Document d = new Document();
-        d.setName("Поиходная накладная");
-        d.setContent("Пельмешки 10 шутк, вах");
-        d.setHistorys(new ArrayList<>());
-        d.setAuthor(author);
-        d.setCreateDate(new Date());
-        d.setStatus(status);
-        List<Document> docs = new ArrayList<>();
-        docs.add(d);
-        return docs;
+    public List<Document> getDocumetsByApprover(int id) {
+        return dao.getDocumentsByApprover(id);
+    }
+
+    public Document getDocumentById(int id) {
+        return dao.getDocumentById(id);
     }
     
     public void approve(int id) {
-        
+        changeDocumentStatus(id, "Подтвержден");
     }
     
     public void reject(int id) {
-        
+        changeDocumentStatus(id, "Отклонен");
+    }
+    
+    private void changeDocumentStatus(int id, String statusName) {
+        Document document = dao.getDocumentById(id);
+        DocumentStatus status = dao.getDocumentStatusByName(statusName);
+        document.setStatus(status);
+        dao.updateDocument(document);
     }
 }

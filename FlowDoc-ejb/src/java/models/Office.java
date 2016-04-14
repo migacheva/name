@@ -18,7 +18,7 @@ public class Office implements Serializable {
     private int id;
     @NotNull
     private String name;
-    @OneToMany
+    @OneToMany(mappedBy = "office")
     private List<DocUser> users;
 
     public int getId() {

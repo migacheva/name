@@ -6,22 +6,17 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-    <ui:define name="top">
+    <ui:define name="title">
         Список документов
     </ui:define>
 
-    <ui:define name="left">
-    </ui:define>
-
-    <ui:define name="right">
-        <h:form>
-            <h:commandButton action="#{planktonController.createDocument()}" value="Создать документ"/>
-        </h:form>
+    <ui:define name="header">
+        Список документов
     </ui:define>
 
     <ui:define name="content">
         <h:form>
-            <h:dataTable value="#{planktonController.documents}" var="item">
+            <h:dataTable value="#{planktonController.documents}" var="item" class="data_table">
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Name"/>
@@ -60,26 +55,28 @@
                     <f:facet name="header">
                         <h:outputText value="Редактирование"/>
                     </f:facet>
-                    <c:choose>
-                        <c:when test='#{item.status.name eq "created"}'>
-                            <h:commandButton action="#{planktonController.upateDocument(item.id)}" value="Редактировать"/>
-                        </c:when>
-                    </c:choose>
+                    <h:commandButton action="#{planktonController.upateDocument(item.id)}" value="Редактировать" 
+                                     rendered="#{item.status.name eq 'Создан' or item.status.name eq 'Отклонен'}" class="button"/> <!--Если атрибут rendered установлен в true, то элемент отрисовывается-->
                 </h:column>
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Назначение"/>
                     </f:facet>
-                    <h:commandButton action="#{planktonController.setApprover(item.id)}" value="Назначить"/>
+                    <h:commandButton action="#{planktonController.setApprover(item.id)}" value="Назначить"
+                                     rendered="#{item.status.name eq 'Создан'}" class="button"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Удаление"/>
                     </f:facet>
-                    <h:commandButton action="#{planktonController.removeDocument(item.id)}" value="Выбросить"/>
+                    <h:commandButton action="#{planktonController.removeDocument(item.id)}" value="Выбросить"
+                                     rendered="#{item.status.name eq 'Создан'}" class="button"/>
                 </h:column>
             </h:dataTable>
         </h:form>
+        <h:form>
+            <h:commandButton action="#{planktonController.createDocument()}" value="Создать документ" class="button"/>
+        </h:form>
+        <h:button outcome="logout" value="На главную" class="button"/>
     </ui:define>
-
 </ui:composition>
