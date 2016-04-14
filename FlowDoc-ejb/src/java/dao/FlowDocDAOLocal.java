@@ -13,25 +13,19 @@ public interface FlowDocDAOLocal {
     List<DocUser> getAllApprovers();
     List<Role> getAllRoles();
     DocUser getUserById(int id);
-    DocUser createUser(DocUser user);
+    void createUser(DocUser user);
     void updateUser(DocUser user);
     void removeUser(DocUser user);
     
     List<Office> getAllOffice();
     Office getOfficeById(int id);
-    Office createOffice(Office office);
+    void createOffice(Office office);
     void updateOffice(Office office);
     void removeOffice(Office office);
     
-    List<DocUser> getAllDocUsers();
-    DocUser getDocUserById(int id);
-    DocUser createDocUser(DocUser user);
-    void updateDocUser(DocUser user);
-    void removeDocUser(DocUser user);
-    
     List<Document> getAllDocuments();
     Document getDocumentById(int id);
-    Document createDocument(Document document);
+    void createDocument(Document document);
     void updateDocument(Document document);
     void removeDocument(Document document);
 }

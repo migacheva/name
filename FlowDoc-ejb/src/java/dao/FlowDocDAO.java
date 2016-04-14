@@ -2,6 +2,9 @@ package dao;
 
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import models.DocUser;
 import models.Document;
 import models.Office;
@@ -9,106 +12,97 @@ import models.Role;
 
 @Stateless
 public class FlowDocDAO implements FlowDocDAOLocal {
-
-    @Override
-    public List<Office> getAllOffice() {
-        return null;
-    }
-
-    @Override
-    public Office getOfficeById(int id) {
-        return null;
-    }
-
-    @Override
-    public Office createOffice(Office office) {
-        return null;
-    }
-
-    @Override
-    public void updateOffice(Office office) {
-    }
-
-    @Override
-    public void removeOffice(Office office) {
-    }
-
-    @Override
-    public List<DocUser> getAllDocUsers() {
-        return null;
-    }
-
-    @Override
-    public DocUser getDocUserById(int id) {
-        return null;
-    }
-
-    @Override
-    public DocUser createDocUser(DocUser user) {
-        return null;
-    }
-
-    @Override
-    public void updateDocUser(DocUser user) {
-    }
-
-    @Override
-    public void removeDocUser(DocUser user) {
-    }
-
-    @Override
-    public List<Document> getAllDocuments() {
-        return null;
-    }
-
-    @Override
-    public Document getDocumentById(int id) {
-        return null;
-    }
-
-    @Override
-    public Document createDocument(Document document) {
-        return null;
-    }
-
-    @Override
-    public void updateDocument(Document document) {
-    }
-
-    @Override
-    public void removeDocument(Document document) {
-    }
+    
+    @PersistenceContext(unitName = "FlowDoc-ejbPU")
+    private EntityManager em;
 
     @Override
     public List<DocUser> getAllUsers() {
-        return null;
-    }
-
-    @Override
-    public DocUser getUserById(int id) {
-        return null;
-    }
-
-    @Override
-    public DocUser createUser(DocUser user) {
-        return null;
-    }
-
-    @Override
-    public void updateUser(DocUser user) {
-    }
-
-    @Override
-    public void removeUser(DocUser user) {
+        Query query = em.createQuery("SELECT u FROM DocUser u", DocUser.class);
+        return query.getResultList();
     }
 
     @Override
     public List<DocUser> getAllApprovers() {
-        return null;
+        Query query = em.createQuery("SELECT a FROM DocUser a WHERE a.role.name='Подтверждающий'", DocUser.class);
+        return query.getResultList();
     }
 
     @Override
     public List<Role> getAllRoles() {
-        return null;
+        Query query = em.createQuery("SELECT r FROM Role r", Role.class);
+        return query.getResultList();
+    }
+
+    @Override
+    public DocUser getUserById(int id) {
+        return em.find(DocUser.class, id);
+    }
+
+    @Override
+    public void createUser(DocUser user) {
+        em.persist(user);
+    }
+
+    @Override
+    public void updateUser(DocUser user) {
+        em.merge(user);
+    }
+
+    @Override
+    public void removeUser(DocUser user) {
+        em.remove(em.merge(user));
+    }
+
+    @Override
+    public List<Office> getAllOffice() {
+        Query query = em.createQuery("SELECT o FROM Office o", Office.class);
+        return query.getResultList();
+    }
+
+    @Override
+    public Office getOfficeById(int id) {
+        return em.find(Office.class, id);
+    }
+
+    @Override
+    public void createOffice(Office office) {
+        em.persist(office);
+    }
+
+    @Override
+    public void updateOffice(Office office) {
+        em.merge(office);
+    }
+
+    @Override
+    public void removeOffice(Office office) {
+        em.remove(em.merge(office));
+    }
+
+    @Override
+    public List<Document> getAllDocuments() {
+        Query query = em.createQuery("SELECT d FROM Document d", Document.class);
+        return query.getResultList();
+    }
+
+    @Override
+    public Document getDocumentById(int id) {
+        return em.find(Document.class, id);
+    }
+
+    @Override
+    public void createDocument(Document document) {
+        em.persist(document);
+    }
+
+    @Override
+    public void updateDocument(Document document) {
+        em.merge(document);
+    }
+
+    @Override
+    public void removeDocument(Document document) {
+        em.remove(em.merge(document));
     }
 }
