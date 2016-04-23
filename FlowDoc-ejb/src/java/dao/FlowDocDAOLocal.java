@@ -14,10 +14,12 @@ public interface FlowDocDAOLocal {
     List<DocUser> getAllApprovers();
     List<Role> getAllRoles();
     DocUser getUserById(int id);
+    DocUser getUserByName(String name);
     void createUser(DocUser user);
     void updateUser(DocUser user);
     void removeUser(DocUser user);
     Role getRoleById(int id);
+    Role getRoleByName(String name);
     
     List<Office> getAllOffice();
     Office getOfficeById(int id);

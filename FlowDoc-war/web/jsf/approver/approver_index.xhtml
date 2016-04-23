@@ -16,6 +16,11 @@
 
     <ui:define name="content">
         <h:form>
+            <h:panelGrid class="user_data">
+                <h:outputText value="Вы вошли как #{approverController.currentUser.name}"/>
+                <h:outputText value="Ваш отдел: #{approverController.currentUser.office.name}"/>
+                <h:commandButton action="#{authController.logout()}" value="Выйти из учетной записи" class="button"/>
+            </h:panelGrid>
             <h:dataTable value="#{approverController.documets}" var="document" class="data_table">
                 <h:column>
                     <f:facet name="header">
@@ -59,6 +64,5 @@
                 </h:column>
             </h:dataTable>
         </h:form>
-        <h:button outcome="logout" value="На главную" class="button"/>
     </ui:define>
 </ui:composition>

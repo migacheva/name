@@ -18,7 +18,7 @@ public class Office implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotNull
-    @Size (min = 5, max = 20)
+    @Size (min = 4, max = 20)
     private String name;
     @OneToMany(mappedBy = "office")
     private List<DocUser> users;

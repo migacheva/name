@@ -19,7 +19,7 @@
                 <f:selectItems value="#{adminController.allOffices}" var="office" 
                                itemLabel="#{office.name}" itemValue="#{office.id}"/>
             </h:selectOneMenu>
-            <h:commandButton action="#{adminController.changeUserOfficeConfirm()}" value="Сменить"/>
+            <h:commandButton action="#{adminController.changeUserOfficeConfirm()}" value="Сменить" class = "button"/>
         </h:form>
     </ui:define>
 </ui:composition>

@@ -14,22 +14,15 @@
     </ui:define>
 
     <ui:define name="content">
-        <table>
-            <tr>
-                <td>
-                    <h:button outcome="plankton" value="Я планктон" class="button"/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <h:button outcome="approver" value="Я апрувер" class="button"/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <h:button outcome="admin" value="Я админ" class="button"/>
-                </td>
-            </tr>
-        </table>
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel for="name" value="Назови имя"/>
+                <h:inputText value="#{authController.userData.name}" id="name"/>
+                <h:outputLabel for="password" value="И пароль"/>
+                <h:inputSecret value="#{authController.userData.password}" id="password"/>
+                <h:commandButton action="#{authController.login()}" value="Войти" class="button"/>
+                <h:button outcome="register" value="Создать учетную запись" class="button"/>
+            </h:panelGrid>
+        </h:form>
     </ui:define>
 </ui:composition>

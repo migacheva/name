@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./../template/template.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="title">
         Список документов
@@ -16,6 +16,11 @@
 
     <ui:define name="content">
         <h:form>
+            <h:panelGrid class="user_data">
+                <h:outputText value="Вы вошли как: #{planktonController.currentUser.name}"/>
+                <h:outputText value="Ваш отдел: #{planktonController.currentUser.office.name}"/>
+                <h:commandButton action="#{authController.logout()}" value="Выйти из учетной записи" class="button"/>
+            </h:panelGrid>
             <h:dataTable value="#{planktonController.documents}" var="item" class="data_table">
                 <h:column>
                     <f:facet name="header">
@@ -73,10 +78,7 @@
                                      rendered="#{item.status.name eq 'Создан'}" class="button"/>
                 </h:column>
             </h:dataTable>
-        </h:form>
-        <h:form>
             <h:commandButton action="#{planktonController.createDocument()}" value="Создать документ" class="button"/>
         </h:form>
-        <h:button outcome="logout" value="На главную" class="button"/>
     </ui:define>
 </ui:composition>

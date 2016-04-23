@@ -1,5 +1,6 @@
 package controllers;
 
+import ejb.AuthServiceLocal;
 import ejb.PlanktonService;
 import java.io.Serializable;
 import java.util.List;
@@ -15,14 +16,18 @@ import models.Document;
 public class PlanktonController implements Serializable {
 
     @EJB
+    private AuthServiceLocal authService;
+
+    @EJB
     private PlanktonService planktonService;
+    
     private DocUser currentUser;
     private Document currentDocument;
     private int chosenApproverId;
 
     @PostConstruct
     private void onCreate() {
-        currentUser = planktonService.getUserById(1);
+        currentUser = authService.getCurrentUser();
     }
     
     public DocUser getCurrentUser() {

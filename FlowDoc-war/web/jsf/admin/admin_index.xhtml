@@ -16,6 +16,11 @@
 
     <ui:define name="content">
         <h:form>
+            <h:panelGrid class="user_data">
+                <h:outputText value="Вы вошли как #{adminController.currentUser.name}"/>
+                <h:outputText value="Ваш отдел: #{adminController.currentUser.office.name}"/>
+                <h:commandButton action="#{authController.logout()}" value="Выйти из учетной записи" class="button"/>
+            </h:panelGrid>
             <h1><h:outputText value="Список отделов"/></h1>
             <h:dataTable value="#{adminController.allOffices}" var="item" class="data_table">
                 <h:column>
@@ -81,10 +86,7 @@
                     <h:commandButton action="#{adminController.removeUser(item.id)}" value="Удалить" class="button"/>
                 </h:column>
             </h:dataTable>
-        </h:form>
-        <h:form>
             <h:commandButton action="#{adminController.createUser()}" value="Добавить пользователя" class="button"/>
         </h:form>
-        <h:button outcome="logout" value="На главную" class="button"/>
     </ui:define>
 </ui:composition>

@@ -3,8 +3,7 @@ package models;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,9 +22,9 @@ public class DocUser implements Serializable {
     private int id;
     @NotNull
     @Size(min = 4, max = 50)
+    @Column(unique = true)
     private String name;
     @NotNull
-    @Size(min = 6)
     private String password;
     @NotNull
     @ManyToOne
@@ -54,18 +53,7 @@ public class DocUser implements Serializable {
     }
 
     public void setPassword(String password) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update(password.getBytes());
-            byte byteData[] = md.digest();
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < byteData.length; i++) {
-                sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            this.password = sb.toString();
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(DocUser.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.password = encryptPassword(password);
     }
 
     public Role getRole() {
@@ -82,5 +70,24 @@ public class DocUser implements Serializable {
 
     public void setOffice(Office office) {
         this.office = office;
+    }
+    
+    private String encryptPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(password.getBytes());
+            byte byteData[] = md.digest();
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : byteData) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException ex) {
+            return password;
+        }
     }
 }

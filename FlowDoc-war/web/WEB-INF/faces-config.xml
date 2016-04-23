@@ -20,6 +20,14 @@
             <to-view-id>/jsf/admin/admin_index.xhtml</to-view-id>
             <redirect/> 
         </navigation-case>
+        <navigation-case>
+            <from-outcome>register</from-outcome>
+            <to-view-id>/register.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/jsf/approver/approver_index.xhtml</from-view-id>
@@ -213,6 +221,17 @@
             <from-outcome>index</from-outcome>
             <to-view-id>/jsf/admin/admin_index.xhtml</to-view-id>
             <redirect/> 
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/register.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>register</from-outcome>
+            <to-view-id>/register.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

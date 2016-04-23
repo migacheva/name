@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import models.DocUser;
@@ -41,6 +42,17 @@ public class FlowDocDAO implements FlowDocDAOLocal {
     }
 
     @Override
+    public DocUser getUserByName(String name) {
+        try {
+            Query query = em.createQuery("SELECT u FROM DocUser u WHERE u.name=?1", DocUser.class);
+            query.setParameter(1, name);
+            return (DocUser) query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    @Override
     public void createUser(DocUser user) {
         em.persist(user);
     }
@@ -58,6 +70,13 @@ public class FlowDocDAO implements FlowDocDAOLocal {
     @Override
     public Role getRoleById(int id) {
         return em.find(Role.class, id);
+    }
+
+    @Override
+    public Role getRoleByName(String name) {
+        Query query = em.createQuery("SELECT r FROM Role r WHERE r.name=?1", Role.class);
+        query.setParameter(1, name);
+        return (Role) query.getSingleResult();
     }
     
     @Override

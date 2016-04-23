@@ -1,6 +1,7 @@
 package controllers;
 
 import ejb.ApproverService;
+import ejb.AuthServiceLocal;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -15,13 +16,17 @@ import models.Document;
 public class ApproverController implements Serializable{
 
     @EJB
+    private AuthServiceLocal authService;
+
+    @EJB
     private ApproverService approverService;
+    
     private DocUser currentUser;
     private Document currentDocument;
 
     @PostConstruct
     private void onCreate() {
-        currentUser = approverService.getUserById(2);
+        currentUser = authService.getCurrentUser();
     }
     
     public DocUser getCurrentUser() {
