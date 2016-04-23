@@ -10,6 +10,7 @@ import models.DocUser;
 import models.Document;
 import models.DocumentHistory;
 import models.DocumentStatus;
+import util.DocStatistics;
 
 @Stateless
 @LocalBean
@@ -59,5 +60,9 @@ public class PlanktonService {
         DocumentStatus status = dao.getDocumentStatusByName("На утверждении");
         document.setStatus(status);
         dao.updateDocument(document);
+    }
+
+    public DocStatistics getStatisticsByUser(int id) {
+        return dao.getStatisticsByUser(id);
     }
 }

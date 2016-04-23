@@ -11,6 +11,7 @@ import models.Document;
 import models.DocumentStatus;
 import models.Office;
 import models.Role;
+import util.DocStatistics;
 
 @Stateless
 public class FlowDocDAO implements FlowDocDAOLocal {
@@ -144,5 +145,34 @@ public class FlowDocDAO implements FlowDocDAOLocal {
         Query query = em.createQuery("SELECT s FROM DocumentStatus s WHERE s.name=?1", DocumentStatus.class);
         query.setParameter(1, name);
         return (DocumentStatus) query.getSingleResult();
+    }
+
+    @Override
+    public DocStatistics getStatisticsByUser(int id) {
+        DocStatistics statistics = new DocStatistics();
+        Query query = em.createQuery("SELECT COUNT(d) FROM Document d WHERE d.author.id=?1");
+        query.setParameter(1, id);
+        statistics.setTotal((long) query.getSingleResult());
+        
+        query = em.createQuery("SELECT COUNT(d) FROM Document d WHERE d.author.id=?1 AND d.status.name=?2");
+        query.setParameter(1, id);
+        query.setParameter(2, "Подтвержден");
+        statistics.setApproved((long) query.getSingleResult());
+        
+        query = em.createQuery("SELECT COUNT(d) FROM Document d WHERE d.author.id=?1 AND d.status.name=?2");
+        query.setParameter(1, id);
+        query.setParameter(2, "Отклонен");
+        statistics.setRejected((long) query.getSingleResult());
+        
+        query = em.createQuery("SELECT COUNT(d) FROM Document d WHERE d.author.id=?1 AND d.status.name=?2");
+        query.setParameter(1, id);
+        query.setParameter(2, "Создан");
+        statistics.setCreated((long) query.getSingleResult());
+        
+        query = em.createQuery("SELECT COUNT(d) FROM Document d WHERE d.author.id=?1 AND d.status.name=?2");
+        query.setParameter(1, id);
+        query.setParameter(2, "На утверждении");
+        statistics.setOnApprove((long) query.getSingleResult());
+        return statistics;
     }
 }

@@ -10,6 +10,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import models.DocUser;
 import models.Document;
+import util.DocStatistics;
 
 @Named
 @SessionScoped
@@ -111,5 +112,9 @@ public class PlanktonController implements Serializable {
         planktonService.removeDocument(currentDocument);
         this.currentDocument = null;
         return "index";
+    }
+
+    public DocStatistics getStatistics() {
+        return planktonService.getStatisticsByUser(currentUser.getId());
     }
 }

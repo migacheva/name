@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -26,6 +27,7 @@ public class Document implements Serializable {
     private String name;
     @NotNull
     @Size (min = 10, max = 2000)
+    @Lob
     private String content;
     @NotNull
     @Temporal(TemporalType.DATE)

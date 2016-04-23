@@ -7,6 +7,7 @@ import models.Document;
 import models.DocumentStatus;
 import models.Office;
 import models.Role;
+import util.DocStatistics;
 
 @Local
 public interface FlowDocDAOLocal {
@@ -34,4 +35,6 @@ public interface FlowDocDAOLocal {
     void updateDocument(Document document);
     void removeDocument(Document document);
     DocumentStatus getDocumentStatusByName(String name);
+    
+    DocStatistics getStatisticsByUser(int id);
 }
