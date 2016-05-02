@@ -103,6 +103,7 @@ body {
     border: none;
     outline: none;
     transition: all 0.5s;
+    margin-right: 5px;
 }
 
 .button:hover {

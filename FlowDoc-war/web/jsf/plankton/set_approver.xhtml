@@ -16,8 +16,8 @@
     <ui:define name="content">
         <h:form>
             <h:panelGrid columns="2">
-                <h:outputLabel value="Approver:" for="approver" />
-                <h:selectOneMenu id="approver" value="#{planktonController.chosenApproverId}" title="Approver" >
+                <h:outputLabel value="Утверждающий" for="approver" />
+                <h:selectOneMenu id="approver" value="#{planktonController.chosenApproverId}" title="Утверждающий" >
                     <f:selectItems value="#{planktonController.allApprovers}" var="approver" 
                                    itemLabel="#{approver.name}" itemValue="#{approver.id}"/>
                 </h:selectOneMenu>

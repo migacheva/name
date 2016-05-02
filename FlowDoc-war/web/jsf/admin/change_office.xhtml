@@ -15,10 +15,13 @@
 
     <ui:define name="content">
         <h:form>
-            <h:selectOneMenu value="#{adminController.officeId}">
-                <f:selectItems value="#{adminController.allOffices}" var="office" 
-                               itemLabel="#{office.name}" itemValue="#{office.id}"/>
-            </h:selectOneMenu>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Отдел" for="office" />
+                <h:selectOneMenu value="#{adminController.officeId}" id="office">
+                    <f:selectItems value="#{adminController.allOffices}" var="office" 
+                                   itemLabel="#{office.name}" itemValue="#{office.id}"/>
+                </h:selectOneMenu>
+            </h:panelGrid>
             <h:commandButton action="#{adminController.changeUserOfficeConfirm()}" value="Сменить" class = "button"/>
         </h:form>
     </ui:define>

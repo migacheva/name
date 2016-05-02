@@ -16,23 +16,23 @@
     <ui:define name="content">
         <h:form>
             <h:panelGrid columns="2">
-                <h:outputText value="Name:"/>
-                <h:outputText value="#{planktonController.currentDocument.name}" title="Name"/>
-                <h:outputText value="Content:"/>
-                <h:outputText value="#{planktonController.currentDocument.content}" title="Content"/>
-                <h:outputText value="CreateDate:"/>
-                <h:outputText value="#{planktonController.currentDocument.createDate}" title="CreateDate">
-                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                <h:outputText value="Название документа"/>
+                <h:outputText value="#{planktonController.currentDocument.name}" title="Название документа"/>
+                <h:outputText value="Содержимое документа"/>
+                <h:outputText value="#{planktonController.currentDocument.content}" title="Содержание документа"/>
+                <h:outputText value="Дата создания"/>
+                <h:outputText value="#{planktonController.currentDocument.createDate}" title="Дата создания">
+                    <f:convertDateTime pattern="dd.MM.yyyy"/>
                 </h:outputText>
-                <h:outputText value="Status:"/>
-                <h:outputText value="#{planktonController.currentDocument.status.name}" title="Status"/>
-                <h:outputText value="Approver:"/>
-                <h:outputText value="#{planktonController.currentDocument.approver.name}" title="Approver"/>
+                <h:outputText value="Состояние"/>
+                <h:outputText value="#{planktonController.currentDocument.status.name}" title="Состояние"/>
+                <h:outputText value="Утверждающий"/>
+                <h:outputText value="#{planktonController.currentDocument.approver.name}" title="Утверждающий"/>
             </h:panelGrid>
             <h:dataTable value="#{planktonController.currentDocument.historys}" var="item">
                 <h:column>
                     <f:facet name="header">
-                        <h:outputText value="Даты редактирования"/>
+                        <h:outputText value="Время редактирования"/>
                     </f:facet>
                     <h:outputText value="#{item.editDate}">
                         <f:convertDateTime pattern="MM.dd.yyyy HH:mm"/>

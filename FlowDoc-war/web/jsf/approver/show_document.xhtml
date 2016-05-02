@@ -16,18 +16,18 @@
     <ui:define name="content">
         <h:form>
             <h:panelGrid columns="2">
-                <h:outputText value="Name:"/>
-                <h:outputText value="#{approverController.currentDocument.name}" title="Name"/>
-                <h:outputText value="Content:"/>
-                <h:outputText value="#{approverController.currentDocument.content}" title="Content"/>
-                <h:outputText value="CreateDate:"/>
-                <h:outputText value="#{approverController.currentDocument.createDate}" title="CreateDate">
-                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                <h:outputText value="Название документа"/>
+                <h:outputText value="#{approverController.currentDocument.name}" title="Название документа"/>
+                <h:outputText value="Содержимое документа"/>
+                <h:outputText value="#{approverController.currentDocument.content}" title="Содержимое документа"/>
+                <h:outputText value="Дата создания"/>
+                <h:outputText value="#{approverController.currentDocument.createDate}" title="Дата создания">
+                    <f:convertDateTime pattern="dd.MM.yyyy" />
                 </h:outputText>
-                <h:outputText value="Status:"/>
-                <h:outputText value="#{approverController.currentDocument.status.name}" title="Status"/>
-                <h:outputText value="Author:"/>
-                <h:outputText value="#{approverController.currentDocument.author.name}" title="Author"/>
+                <h:outputText value="Состояние"/>
+                <h:outputText value="#{approverController.currentDocument.status.name}" title="Состояние"/>
+                <h:outputText value="Автор"/>
+                <h:outputText value="#{approverController.currentDocument.author.name}" title="Автор"/>
             </h:panelGrid>
         </h:form>
         <h:button outcome="index" value="На главную" class="button"/>

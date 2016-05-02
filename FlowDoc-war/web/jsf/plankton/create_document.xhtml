@@ -15,10 +15,10 @@
     <ui:define name="content">
         <h:form>
             <h:panelGrid columns="2">
-                <h:outputLabel value="Name:" for="name" />
-                <h:inputText id="name" value="#{planktonController.currentDocument.name}" title="Name"/>
-                <h:outputLabel value="Content:" for="content" />
-                <h:inputTextarea id="content" value="#{planktonController.currentDocument.content}" title="Content" />
+                <h:outputLabel value="Название документа" for="name" />
+                <h:inputText id="name" value="#{planktonController.currentDocument.name}" title="Название документа"/>
+                <h:outputLabel value="Содержимое документа" for="content" />
+                <h:inputTextarea id="content" value="#{planktonController.currentDocument.content}" title="Содержимое документа" />
             </h:panelGrid>
             <h:commandButton action="#{planktonController.createDocumentConfirm()}" value="Создать" class="button"/>
         </h:form>

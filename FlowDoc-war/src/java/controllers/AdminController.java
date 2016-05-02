@@ -110,6 +110,7 @@ public class AdminController implements Serializable {
 
     public String changeUserRole(int id) {
         user = adminService.getUserById(id);
+        roleId = user.getRole().getId();
         return "change_role";
     }
 
@@ -121,6 +122,9 @@ public class AdminController implements Serializable {
 
     public String changeUserOffice(int id) {
         user = adminService.getUserById(id);
+        if (user.getOffice() != null) {
+            officeId = user.getOffice().getId();
+        }
         return "change_office";
     }
 

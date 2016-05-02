@@ -15,10 +15,10 @@
     <ui:define name="content">
         <h:form>
             <h:panelGrid columns="2">
-                <h:outputText value="Name:"/>
-                <h:outputText value="#{adminController.user.name}" title="Name"/>
-                <h:outputText value="Role:"/>
-                <h:outputText value="#{adminController.user.role.name}" title="Role"/>
+                <h:outputText value="Имя сотрудника"/>
+                <h:outputText value="#{adminController.user.name}" title="Имя сотрудника"/>
+                <h:outputText value="Роль"/>
+                <h:outputText value="#{adminController.user.role.name}" title="Роль"/>
                 <h:commandButton action="#{adminController.removeUserConfirm()}" value="Удалить" class="button"/>
             </h:panelGrid>
         </h:form>

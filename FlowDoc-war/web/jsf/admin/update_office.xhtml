@@ -14,8 +14,8 @@
     <ui:define name="content">
         <h:form>
             <h:panelGrid columns="2">
-                <h:outputLabel value="Name:" for="name" />
-                <h:inputText id="name" value="#{adminController.currentOffice.name}" title="Name" />
+                <h:outputLabel value="Название отдела" for="name" />
+                <h:inputText id="name" value="#{adminController.currentOffice.name}" title="Название отдела" />
             </h:panelGrid>
             <h:commandButton action="#{adminController.updateOfficeConfirm()}" value="Сохранить" class="button"/>
         </h:form>
