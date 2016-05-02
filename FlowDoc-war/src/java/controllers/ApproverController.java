@@ -4,37 +4,27 @@ import ejb.ApproverService;
 import ejb.AuthServiceLocal;
 import java.io.Serializable;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import models.DocUser;
 import models.Document;
+import util.OfficeDocumentsStatistics;
 
 @Named
 @SessionScoped
-public class ApproverController implements Serializable{
+public class ApproverController implements Serializable {
 
     @EJB
     private AuthServiceLocal authService;
 
     @EJB
     private ApproverService approverService;
-    
-    private DocUser currentUser;
+
     private Document currentDocument;
 
-    @PostConstruct
-    private void onCreate() {
-        currentUser = authService.getCurrentUser();
-    }
-    
     public DocUser getCurrentUser() {
-        return currentUser;
-    }
-
-    public void setCurrentUser(DocUser currentUser) {
-        this.currentUser = currentUser;
+        return authService.getCurrentUser();
     }
 
     public Document getCurrentDocument() {
@@ -46,9 +36,9 @@ public class ApproverController implements Serializable{
     }
 
     public List<Document> getDocumets() {
-        return approverService.getDocumetsByApprover(currentUser.getId());
+        return approverService.getDocumetsByApprover(authService.getCurrentUser().getId());
     }
-    
+
     public String showDocument(int id) {
         currentDocument = approverService.getDocumentById(id);
         return "show";
@@ -60,5 +50,9 @@ public class ApproverController implements Serializable{
 
     public void reject(int id) {
         approverService.reject(id);
+    }
+
+    public List<OfficeDocumentsStatistics> getAproverDocumentsStatistics() {
+        return approverService.getAproverDocumentsStatisticsByAproverId(authService.getCurrentUser().getId()).getOfficeDocumentsStatistics();
     }
 }

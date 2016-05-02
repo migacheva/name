@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import models.DocUser;
 import models.Office;
 import models.Role;
+import util.UsersStatistics;
 
 @LocalBean
 @Stateless
@@ -74,5 +75,13 @@ public class AdminService {
 
     public void updateOffice(Office office) {
         dao.updateOffice(office);
+    }
+
+    public UsersStatistics geUsersStatistics() {
+        return dao.getUsersStatistics();
+    }
+    
+    public long getOfficesCount() {
+        return dao.getOfficesCount();
     }
 }

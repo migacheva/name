@@ -4,13 +4,12 @@ import ejb.AuthServiceLocal;
 import ejb.PlanktonService;
 import java.io.Serializable;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import models.DocUser;
 import models.Document;
-import util.DocStatistics;
+import util.UserDocumentsStatistics;
 
 @Named
 @SessionScoped
@@ -21,22 +20,12 @@ public class PlanktonController implements Serializable {
 
     @EJB
     private PlanktonService planktonService;
-    
-    private DocUser currentUser;
+
     private Document currentDocument;
     private int chosenApproverId;
 
-    @PostConstruct
-    private void onCreate() {
-        currentUser = authService.getCurrentUser();
-    }
-    
     public DocUser getCurrentUser() {
-        return currentUser;
-    }
-
-    public void setCurrentUser(DocUser currentUser) {
-        this.currentUser = currentUser;
+        return authService.getCurrentUser();
     }
 
     public Document getCurrentDocument() {
@@ -54,24 +43,24 @@ public class PlanktonController implements Serializable {
     public void setChosenApproverId(int chosenApproverId) {
         this.chosenApproverId = chosenApproverId;
     }
-    
+
     public List<Document> getDocuments() {
-        return planktonService.getDocumentsByAuthor(currentUser.getId());
+        return planktonService.getDocumentsByAuthor(authService.getCurrentUser().getId());
     }
 
     public List<DocUser> getAllApprovers() {
         return planktonService.getAllApprovers();
     }
-    
+
     public String showDocument(int id) {
         currentDocument = planktonService.getDocumentById(id);
         return "show";
     }
-    
+
     //Создание нового экземпляра документа и переадресация на страницу заполнения данных
     public String createDocument() {
         this.currentDocument = new Document();
-        currentDocument.setAuthor(currentUser);
+        currentDocument.setAuthor(authService.getCurrentUser());
         return "create";
     }
 
@@ -92,12 +81,12 @@ public class PlanktonController implements Serializable {
         this.currentDocument = null;
         return "index";
     }
-    
+
     public String setApprover(int id) {
         this.currentDocument = planktonService.getDocumentById(id);
         return "set_approver";
     }
-    
+
     public String setApproverConfirm() {
         planktonService.setApprover(currentDocument, chosenApproverId);
         return "index";
@@ -114,7 +103,7 @@ public class PlanktonController implements Serializable {
         return "index";
     }
 
-    public DocStatistics getStatistics() {
-        return planktonService.getStatisticsByUser(currentUser.getId());
+    public UserDocumentsStatistics getStatistics() {
+        return planktonService.getStatisticsByUser(authService.getCurrentUser().getId());
     }
 }

@@ -2,19 +2,14 @@ package util;
 
 import java.io.Serializable;
 
-public class DocStatistics implements Serializable{
-    private long total;
+public class UserDocumentsStatistics implements Serializable{
     private long approved;
     private long rejected;
     private long created;
     private long onApprove;
 
     public long getTotal() {
-        return total;
-    }
-
-    public void setTotal(long total) {
-        this.total = total;
+        return approved + rejected + created + onApprove;
     }
 
     public long getApproved() {

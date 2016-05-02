@@ -10,7 +10,7 @@ import models.DocUser;
 import models.Document;
 import models.DocumentHistory;
 import models.DocumentStatus;
-import util.DocStatistics;
+import util.UserDocumentsStatistics;
 
 @Stateless
 @LocalBean
@@ -62,7 +62,7 @@ public class PlanktonService {
         dao.updateDocument(document);
     }
 
-    public DocStatistics getStatisticsByUser(int id) {
+    public UserDocumentsStatistics getStatisticsByUser(int id) {
         return dao.getStatisticsByUser(id);
     }
 }

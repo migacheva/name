@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import models.DocUser;
 import models.Document;
 import models.DocumentStatus;
+import util.AproverDocumentsStatistics;
 
 @Stateless
 @LocalBean
@@ -41,5 +42,9 @@ public class ApproverService {
         DocumentStatus status = dao.getDocumentStatusByName(statusName);
         document.setStatus(status);
         dao.updateDocument(document);
+    }
+
+    public AproverDocumentsStatistics getAproverDocumentsStatisticsByAproverId(int id) {
+        return dao.getAproverDocumentsStatisticsByAproverId(id);
     }
 }

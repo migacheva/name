@@ -76,7 +76,7 @@
             <h:commandButton action="#{planktonController.createDocument()}" value="Создать документ" class="button"/>
         </h:form>
         <h1>Статистика по документам</h1>
-        <h:panelGrid columns="2" class="statistics">
+        <h:panelGrid columns="2" class="statistics statistics_total">
             <h:outputText value="Подтвержденных документов"/>
             <h:outputText value="#{planktonController.statistics.approved}"/>
             <h:outputText value="Отклоненных документов"/>

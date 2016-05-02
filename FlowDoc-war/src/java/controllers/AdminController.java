@@ -4,13 +4,13 @@ import ejb.AdminService;
 import ejb.AuthServiceLocal;
 import java.io.Serializable;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import models.DocUser;
 import models.Office;
 import models.Role;
+import util.UsersStatistics;
 
 @Named
 @SessionScoped
@@ -24,15 +24,9 @@ public class AdminController implements Serializable {
     
     private Office currentOffice;
     private DocUser user;
-    private DocUser currentUser;
     private int roleId;
     private int officeId;
 
-    
-    @PostConstruct
-    public void onCreate() {
-        currentUser = authService.getCurrentUser();
-    }
 
     public Office getCurrentOffice() {
         return currentOffice;
@@ -51,11 +45,7 @@ public class AdminController implements Serializable {
     }
 
     public DocUser getCurrentUser() {
-        return currentUser;
-    }
-
-    public void setCurrentUser(DocUser currentUser) {
-        this.currentUser = currentUser;
+        return authService.getCurrentUser();
     }
     
     public int getRoleId() {
@@ -165,5 +155,13 @@ public class AdminController implements Serializable {
         adminService.removeOffice(currentOffice);
         currentOffice = null;
         return "index";
+    }
+
+    public UsersStatistics getUsersStatistics() {
+        return adminService.geUsersStatistics();
+    }
+
+    public long getOfficesCount() {
+        return adminService.getOfficesCount();
     }
 }

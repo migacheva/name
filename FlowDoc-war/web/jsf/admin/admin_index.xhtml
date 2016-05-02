@@ -42,8 +42,10 @@
                     <h:commandButton action="#{adminController.removeOffice(item.id)}" value="Удалить" class="button"/>
                 </h:column>
             </h:dataTable>
-        </h:form>
-        <h:form>
+            <h:panelGrid columns="2" class="statistics">
+                <h:outputText value="Количество отделов:"/>
+                <h:outputText value="#{adminController.officesCount}"/>
+            </h:panelGrid>
             <h:commandButton action="#{adminController.createOffice()}" value="Добавить отдел" class="button"/>
         </h:form>
         <h:form>
@@ -86,6 +88,16 @@
                     <h:commandButton action="#{adminController.removeUser(item.id)}" value="Удалить" class="button"/>
                 </h:column>
             </h:dataTable>
+            <h:panelGrid columns="2" class="statistics statistics_total">
+                <h:outputText value="Администраторов:"/>
+                <h:outputText value="#{adminController.usersStatistics.adminsCount}"/>
+                <h:outputText value="Утверждающих:"/>
+                <h:outputText value="#{adminController.usersStatistics.aproversCount}"/>
+                <h:outputText value="Пользователей:"/>
+                <h:outputText value="#{adminController.usersStatistics.usersCount}"/>
+                <h:outputText value="Всего:"/>
+                <h:outputText value="#{adminController.usersStatistics.total}"/>
+            </h:panelGrid>
             <h:commandButton action="#{adminController.createUser()}" value="Добавить пользователя" class="button"/>
         </h:form>
     </ui:define>

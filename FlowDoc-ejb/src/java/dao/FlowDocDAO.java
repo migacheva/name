@@ -11,11 +11,14 @@ import models.Document;
 import models.DocumentStatus;
 import models.Office;
 import models.Role;
-import util.DocStatistics;
+import util.AproverDocumentsStatistics;
+import util.OfficeDocumentsStatistics;
+import util.UserDocumentsStatistics;
+import util.UsersStatistics;
 
 @Stateless
 public class FlowDocDAO implements FlowDocDAOLocal {
-    
+
     @PersistenceContext(unitName = "FlowDoc-ejbPU")
     private EntityManager em;
 
@@ -79,7 +82,7 @@ public class FlowDocDAO implements FlowDocDAOLocal {
         query.setParameter(1, name);
         return (Role) query.getSingleResult();
     }
-    
+
     @Override
     public List<Office> getAllOffice() {
         Query query = em.createQuery("SELECT o FROM Office o", Office.class);
@@ -148,31 +151,78 @@ public class FlowDocDAO implements FlowDocDAOLocal {
     }
 
     @Override
-    public DocStatistics getStatisticsByUser(int id) {
-        DocStatistics statistics = new DocStatistics();
-        Query query = em.createQuery("SELECT COUNT(d) FROM Document d WHERE d.author.id=?1");
-        query.setParameter(1, id);
-        statistics.setTotal((long) query.getSingleResult());
-        
-        query = em.createQuery("SELECT COUNT(d) FROM Document d WHERE d.author.id=?1 AND d.status.name=?2");
+    public UserDocumentsStatistics getStatisticsByUser(int id) {
+        UserDocumentsStatistics statistics = new UserDocumentsStatistics();
+
+        Query query = em.createQuery("SELECT COUNT(d) FROM Document d WHERE d.author.id=?1 AND d.status.name=?2");
         query.setParameter(1, id);
         query.setParameter(2, "Подтвержден");
         statistics.setApproved((long) query.getSingleResult());
-        
+
         query = em.createQuery("SELECT COUNT(d) FROM Document d WHERE d.author.id=?1 AND d.status.name=?2");
         query.setParameter(1, id);
         query.setParameter(2, "Отклонен");
         statistics.setRejected((long) query.getSingleResult());
-        
+
         query = em.createQuery("SELECT COUNT(d) FROM Document d WHERE d.author.id=?1 AND d.status.name=?2");
         query.setParameter(1, id);
         query.setParameter(2, "Создан");
         statistics.setCreated((long) query.getSingleResult());
-        
+
         query = em.createQuery("SELECT COUNT(d) FROM Document d WHERE d.author.id=?1 AND d.status.name=?2");
         query.setParameter(1, id);
         query.setParameter(2, "На утверждении");
         statistics.setOnApprove((long) query.getSingleResult());
+        return statistics;
+    }
+
+    @Override
+    public UsersStatistics getUsersStatistics() {
+        UsersStatistics statistics = new UsersStatistics();
+        Query query = em.createQuery("SELECT COUNT(a) FROM DocUser a WHERE a.role.name='Администратор'");
+        statistics.setAdminsCount((long) query.getSingleResult());
+
+        query = em.createQuery("SELECT COUNT(a) FROM DocUser a WHERE a.role.name='Утверждающий'");
+        statistics.setAproversCount((long) query.getSingleResult());
+
+        query = em.createQuery("SELECT COUNT(u) FROM DocUser u WHERE u.role.name='Пользователь'");
+        statistics.setUsersCount((long) query.getSingleResult());
+        return statistics;
+    }
+
+    @Override
+    public long getOfficesCount() {
+        Query query = em.createQuery("SELECT COUNT(o) FROM Office o");
+        return (long) query.getSingleResult();
+    }
+
+    @Override
+    public AproverDocumentsStatistics getAproverDocumentsStatisticsByAproverId(int id) {
+        AproverDocumentsStatistics statistics = new AproverDocumentsStatistics();
+        Query queryOffices = em.createQuery("SELECT o.name FROM Office o");
+        List<String> officeNames = queryOffices.getResultList();
+        for (String officeName : officeNames) {
+            OfficeDocumentsStatistics officeDocumentsStatistics = new OfficeDocumentsStatistics();
+            officeDocumentsStatistics.setOfficeName(officeName);
+            Query query = em.createQuery("SELECT COUNT(d) FROM Document d "
+                    + "WHERE d.approver.id=?1 AND d.author.office.name=?2 AND d.status.name='Подтвержден'");
+            query.setParameter(1, id);
+            query.setParameter(2, officeName);
+            officeDocumentsStatistics.setApproved((long) query.getSingleResult());
+
+            query = em.createQuery("SELECT COUNT(d) FROM Document d "
+                    + "WHERE d.approver.id=?1 AND d.author.office.name=?2 AND d.status.name='Отклонен'");
+            query.setParameter(1, id);
+            query.setParameter(2, officeName);
+            officeDocumentsStatistics.setRejected((long) query.getSingleResult());
+
+            query = em.createQuery("SELECT COUNT(d) FROM Document d "
+                    + "WHERE d.approver.id=?1 AND d.author.office.name=?2 AND d.status.name='На утверждении'");
+            query.setParameter(1, id);
+            query.setParameter(2, officeName);
+            officeDocumentsStatistics.setOnApprove((long) query.getSingleResult());
+            statistics.addDocumentsStatistics(officeDocumentsStatistics);
+        }
         return statistics;
     }
 }
