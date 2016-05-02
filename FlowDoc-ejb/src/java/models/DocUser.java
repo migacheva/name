@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "document_users")
+@Table(name = "users")
 public class DocUser implements Serializable {
 
     @Id
