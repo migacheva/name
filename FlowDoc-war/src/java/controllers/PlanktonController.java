@@ -22,6 +22,7 @@ public class PlanktonController implements Serializable {
     private PlanktonService planktonService;
 
     private Document currentDocument;
+    private List<Document> documents;
     private int chosenApproverId;
 
     public DocUser getCurrentUser() {
@@ -45,7 +46,10 @@ public class PlanktonController implements Serializable {
     }
 
     public List<Document> getDocuments() {
-        return planktonService.getDocumentsByAuthor(authService.getCurrentUser().getId());
+        if (documents == null) {
+            loadDocumetns();
+        }
+        return documents;
     }
 
     public List<DocUser> getAllApprovers() {
@@ -68,6 +72,7 @@ public class PlanktonController implements Serializable {
     public String createDocumentConfirm() {
         planktonService.createDocument(currentDocument);
         this.currentDocument = null;
+        loadDocumetns();
         return "index";
     }
 
@@ -79,6 +84,7 @@ public class PlanktonController implements Serializable {
     public String upateDocumentConfirm() {
         planktonService.upateDocument(currentDocument);
         this.currentDocument = null;
+        loadDocumetns();
         return "index";
     }
 
@@ -89,6 +95,7 @@ public class PlanktonController implements Serializable {
 
     public String setApproverConfirm() {
         planktonService.setApprover(currentDocument, chosenApproverId);
+        loadDocumetns();
         return "index";
     }
 
@@ -100,10 +107,15 @@ public class PlanktonController implements Serializable {
     public String removeDocumentConfirm() {
         planktonService.removeDocument(currentDocument);
         this.currentDocument = null;
+        loadDocumetns();
         return "index";
     }
 
     public UserDocumentsStatistics getStatistics() {
         return planktonService.getStatisticsByUser(authService.getCurrentUser().getId());
+    }
+    
+    private void loadDocumetns() {
+        documents = planktonService.getDocumentsByAuthor(authService.getCurrentUser().getId());
     }
 }

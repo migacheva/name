@@ -4,7 +4,8 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./../template/template.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="title">
         Панель администратора
@@ -22,72 +23,44 @@
                 <h:commandButton action="#{authController.logout()}" value="Выйти из учетной записи" class="button"/>
             </h:panelGrid>
             <h1><h:outputText value="Список отделов"/></h1>
-            <h:dataTable value="#{adminController.allOffices}" var="item" class="data_table">
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Название отдела"/>
-                    </f:facet>
+            <p:dataTable value="#{adminController.allOffices}" var="item">
+                <p:column headerText="Название отдела" sortBy="#{item.name}">
                     <h:outputText value="#{item.name}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Редактирование"/>
-                    </f:facet>
+                </p:column>
+                <p:column headerText="Действия">
                     <h:commandButton action="#{adminController.updateOffice(item.id)}" value="Редактировать" class="button"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Удаление"/>
-                    </f:facet>
                     <h:commandButton action="#{adminController.removeOffice(item.id)}" value="Удалить" class="button"/>
-                </h:column>
-            </h:dataTable>
+                </p:column>
+                <f:facet name="footer">
+                    <h:commandButton action="#{adminController.createOffice()}" value="Добавить отдел" class="button"/>
+                </f:facet>
+            </p:dataTable>
             <h:panelGrid columns="2" class="statistics">
                 <h:outputText value="Количество отделов:"/>
                 <h:outputText value="#{adminController.officesCount}"/>
             </h:panelGrid>
-            <h:commandButton action="#{adminController.createOffice()}" value="Добавить отдел" class="button"/>
         </h:form>
         <h:form>
             <h1><h:outputText value="Список сотрудников"/></h1>
-            <h:dataTable value="#{adminController.allUsers}" var="item" class="data_table">
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Имя сотрудника"/>
-                    </f:facet>
+            <p:dataTable value="#{adminController.allUsers}" var="item">
+                <p:column headerText="Имя сотрудника" sortBy="#{item.name}">
                     <h:outputText value="#{item.name}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Роль"/>
-                    </f:facet>
+                </p:column>
+                <p:column headerText="Роль" sortBy="#{item.role.name}">
                     <h:outputText value="#{item.role.name}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Отдел"/>
-                    </f:facet>
+                </p:column>
+                <p:column headerText="Отдел" sortBy="#{item.office.name}">
                     <h:outputText value="#{item.office.name}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Смена роли"/>
-                    </f:facet>
+                </p:column>
+                <p:column headerText="Действия">
                     <h:commandButton action="#{adminController.changeUserRole(item.id)}" value="Сменить роль" class="button"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Смена отедла"/>
-                    </f:facet>
                     <h:commandButton action="#{adminController.changeUserOffice(item.id)}" value="Сменить отдел" class="button"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Удаление"/>
-                    </f:facet>
                     <h:commandButton action="#{adminController.removeUser(item.id)}" value="Удалить" class="button"/>
-                </h:column>
-            </h:dataTable>
+                </p:column>
+                <f:facet name="footer">
+                    <h:commandButton action="#{adminController.createUser()}" value="Добавить учетную запись сотрудника" class="button"/>
+                </f:facet>
+            </p:dataTable>
             <h:panelGrid columns="2" class="statistics statistics_total">
                 <h:outputText value="Администраторов:"/>
                 <h:outputText value="#{adminController.usersStatistics.adminsCount}"/>
@@ -98,7 +71,6 @@
                 <h:outputText value="Всего:"/>
                 <h:outputText value="#{adminController.usersStatistics.total}"/>
             </h:panelGrid>
-            <h:commandButton action="#{adminController.createUser()}" value="Добавить пользователя" class="button"/>
         </h:form>
     </ui:define>
 </ui:composition>

@@ -22,6 +22,7 @@ public class ApproverController implements Serializable {
     private ApproverService approverService;
 
     private Document currentDocument;
+    private List<Document> documents;
 
     public DocUser getCurrentUser() {
         return authService.getCurrentUser();
@@ -36,7 +37,10 @@ public class ApproverController implements Serializable {
     }
 
     public List<Document> getDocumets() {
-        return approverService.getDocumetsByApprover(authService.getCurrentUser().getId());
+        if (documents == null) {
+            loadDocuments();
+        }
+        return documents;
     }
 
     public String showDocument(int id) {
@@ -46,13 +50,19 @@ public class ApproverController implements Serializable {
 
     public void approve(int id) {
         approverService.approve(id);
+        loadDocuments();
     }
 
     public void reject(int id) {
         approverService.reject(id);
+        loadDocuments();
     }
 
     public List<OfficeDocumentsStatistics> getAproverDocumentsStatistics() {
         return approverService.getAproverDocumentsStatisticsByAproverId(authService.getCurrentUser().getId()).getOfficeDocumentsStatistics();
+    }
+
+    private void loadDocuments() {
+        documents = approverService.getDocumetsByApprover(authService.getCurrentUser().getId());
     }
 }

@@ -5,7 +5,7 @@
                 template="./../template/template.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="title">
         Список документов, поданных на утверждение
@@ -23,45 +23,30 @@
                 <h:commandButton action="#{authController.logout()}" value="Выйти из учетной записи" class="button"/>
             </h:panelGrid>
             <h1>Список документов, поданных на утверждение</h1>
-            <h:dataTable value="#{approverController.documets}" var="document" class="data_table">
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Название документа"/>
-                    </f:facet>
+            <p:dataTable value="#{approverController.documets}" var="document">
+                <p:column headerText="Название документа" sortBy="#{document.name}">
                     <h:commandLink action="#{approverController.showDocument(document.id)}">
                         <h:outputText value="#{document.name}"/>
                     </h:commandLink>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Дата создания"/>
-                    </f:facet>
+                </p:column>
+                <p:column headerText="Дата создания" sortBy="#{document.createDate}">
                     <h:outputText value="#{document.createDate}">
                         <f:convertDateTime pattern="dd.MM.yyyy" />
                     </h:outputText>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Состояние"/>
-                    </f:facet>
+                </p:column>
+                <p:column headerText="Состояние" sortBy="#{document.status.name}">
                     <h:outputText value="#{document.status.name}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Автор"/>
-                    </f:facet>
+                </p:column>
+                <p:column headerText="Автор" sortBy="#{document.author.name}">
                     <h:outputText value="#{document.author.name}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Действия"/>
-                    </f:facet>
+                </p:column>
+                <p:column headerText="Действия">
                     <h:commandButton action="#{approverController.approve(document.id)}" value="Подтвердить" class="button" 
                                      rendered="#{document.status.name ne 'Подтвержден'}"/>
                     <h:commandButton action="#{approverController.reject(document.id)}" value="Отклонить" class="button"
                                      rendered="#{document.status.name ne 'Отклонен'}"/>
-                </h:column>
-            </h:dataTable>
+                </p:column>
+            </p:dataTable>
             <h1>Сводная информация по отделам</h1>
             <h:dataTable value="#{approverController.aproverDocumentsStatistics}" var="line" class="data_table">
                 <h:column>

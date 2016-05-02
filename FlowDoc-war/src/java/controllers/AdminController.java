@@ -24,6 +24,8 @@ public class AdminController implements Serializable {
     
     private Office currentOffice;
     private DocUser user;
+    private List<Office> offices;
+    private List<DocUser> users;
     private int roleId;
     private int officeId;
 
@@ -65,11 +67,17 @@ public class AdminController implements Serializable {
     }
 
     public List<Office> getAllOffices() {
-        return adminService.getAllOffices();
+        if (offices == null) {
+            loadOffices();
+        }
+        return offices;
     }
 
     public List<DocUser> getAllUsers() {
-        return adminService.getAllUsers();
+        if (users == null) {
+            loadUsers();
+        }
+        return users;
     }
 
     public List<Role> getAllRoles() {
@@ -84,6 +92,7 @@ public class AdminController implements Serializable {
     public String createUserConfirm() {
         adminService.createUser(user, roleId);
         user = null;
+        loadUsers();
         return "index";
     }
 
@@ -95,6 +104,7 @@ public class AdminController implements Serializable {
     public String createOfficeConfirm() {
         adminService.createOffice(currentOffice);
         currentOffice = null;
+        loadOffices();
         return "index";
     }
 
@@ -107,6 +117,7 @@ public class AdminController implements Serializable {
     public String changeUserRoleConfirm() {
         adminService.changeUserRole(user, roleId);
         user = null;
+        loadUsers();
         return "index";
     }
 
@@ -121,6 +132,7 @@ public class AdminController implements Serializable {
     public String changeUserOfficeConfirm() {
         adminService.changeUserOffice(user, officeId);
         user = null;
+        loadUsers();
         return "index";
     }
 
@@ -132,6 +144,7 @@ public class AdminController implements Serializable {
     public String updateOfficeConfirm() {
         adminService.updateOffice(currentOffice);
         currentOffice = null;
+        loadOffices();
         return "index";
     }
 
@@ -143,6 +156,7 @@ public class AdminController implements Serializable {
     public String removeUserConfirm() {
         adminService.removeUser(user);
         user = null;
+        loadUsers();
         return "index";
     }
 
@@ -154,6 +168,7 @@ public class AdminController implements Serializable {
     public String removeOfficeConfirm() {
         adminService.removeOffice(currentOffice);
         currentOffice = null;
+        loadOffices();
         return "index";
     }
 
@@ -163,5 +178,13 @@ public class AdminController implements Serializable {
 
     public long getOfficesCount() {
         return adminService.getOfficesCount();
+    }
+    
+    private void loadUsers() {
+        users = adminService.getAllUsers();
+    }
+    
+    private void loadOffices() {
+        offices = adminService.getAllOffices();
     }
 }
