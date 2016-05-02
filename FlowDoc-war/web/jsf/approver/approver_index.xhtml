@@ -17,17 +17,22 @@
 
     <ui:define name="content">
         <h:form>
-            <h:panelGrid class="user_data">
-                <h:outputText value="Вы вошли как #{approverController.currentUser.name}"/>
-                <h:outputText value="Ваш отдел: #{approverController.currentUser.office.name}"/>
-                <h:commandButton action="#{authController.logout()}" value="Выйти из учетной записи" class="button"/>
-            </h:panelGrid>
-            <h1>Список документов, поданных на утверждение</h1>
-            <p:dataTable value="#{approverController.documets}" var="document">
+            <div class="user_data_wrapper">
+                <h:panelGrid class="user_data">
+                    <h:outputText value="Вы вошли как #{approverController.currentUser.name}"/>
+                    <h:outputText value="Ваш отдел: #{approverController.currentUser.office.name}"/>
+                    <p:commandButton action="#{authController.logout()}" value="Выйти из учетной записи"/>
+                </h:panelGrid>
+            </div>
+            <p:dataTable value="#{approverController.documets}" var="document" 
+                         class="data_table">
+                <f:facet name="header">
+                    <h:outputText value="Список документов, поданных на утверждение"/>
+                </f:facet>
                 <p:column headerText="Название документа" sortBy="#{document.name}">
-                    <h:commandLink action="#{approverController.showDocument(document.id)}">
+                    <p:commandLink action="#{approverController.showDocument(document.id)}">
                         <h:outputText value="#{document.name}"/>
-                    </h:commandLink>
+                    </p:commandLink>
                 </p:column>
                 <p:column headerText="Дата создания" sortBy="#{document.createDate}">
                     <h:outputText value="#{document.createDate}">
@@ -40,40 +45,34 @@
                 <p:column headerText="Автор" sortBy="#{document.author.name}">
                     <h:outputText value="#{document.author.name}"/>
                 </p:column>
-                <p:column headerText="Действия">
-                    <h:commandButton action="#{approverController.approve(document.id)}" value="Подтвердить" class="button" 
+                <p:column headerText="Подтверждение">
+                    <p:commandButton action="#{approverController.approve(document.id)}" value="Подтвердить"
+                                     update="@form"
                                      rendered="#{document.status.name ne 'Подтвержден'}"/>
-                    <h:commandButton action="#{approverController.reject(document.id)}" value="Отклонить" class="button"
+                </p:column>
+                <p:column headerText="Отклонение">
+                    <p:commandButton action="#{approverController.reject(document.id)}" value="Отклонить"
+                                     update="@form"
                                      rendered="#{document.status.name ne 'Отклонен'}"/>
                 </p:column>
             </p:dataTable>
-            <h1>Сводная информация по отделам</h1>
-            <h:dataTable value="#{approverController.aproverDocumentsStatistics}" var="line" class="data_table">
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Отдел"/>
-                    </f:facet>
+            <p:dataTable value="#{approverController.aproverDocumentsStatistics}" var="line" class="data_table">
+                <f:facet name="header">
+                    <h:outputText value="Статистика по документам"/>
+                </f:facet>
+                <p:column headerText="Отдел">
                     <h:outputText value="#{line.officeName}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Подтвержденных"/>
-                    </f:facet>
+                </p:column>
+                <p:column headerText="Подтвержденных">
                     <h:outputText value="#{line.approved}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Отклоненных"/>
-                    </f:facet>
+                </p:column>
+                <p:column headerText="Отклоненных">
                     <h:outputText value="#{line.rejected}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="На утверждении"/>
-                    </f:facet>
+                </p:column>
+                <p:column headerText="На утверждении">
                     <h:outputText value="#{line.onApprove}"/>
-                </h:column>
-            </h:dataTable>
+                </p:column>
+            </p:dataTable>
         </h:form>
     </ui:define>
 </ui:composition>

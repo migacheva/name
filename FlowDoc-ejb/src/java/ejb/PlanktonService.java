@@ -27,6 +27,14 @@ public class PlanktonService {
         return dao.getDocumentsByAuthor(id);
     }
 
+    public List<String> getDocumentsNamesByAuthor(int id, String searchText) {
+        return dao.getDocumentsNamesByAuthor(id, searchText);
+    }
+    
+    public List<Document> searchDocumentsByAuthor(int id, String searchText) {
+        return dao.searchDocumentsByAuthor(id, searchText);
+    }
+
     public Document getDocumentById(int id) {
         return dao.getDocumentById(id);
     }

@@ -3,7 +3,8 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./../template/template.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="title">
         Просмотр документа
@@ -12,24 +13,26 @@
     <ui:define name="header">
         Просмотр документа
     </ui:define>
-    
+
     <ui:define name="content">
         <h:form>
-            <h:panelGrid columns="2">
-                <h:outputText value="Название документа"/>
-                <h:outputText value="#{approverController.currentDocument.name}" title="Название документа"/>
-                <h:outputText value="Содержимое документа"/>
-                <h:outputText value="#{approverController.currentDocument.content}" title="Содержимое документа"/>
-                <h:outputText value="Дата создания"/>
-                <h:outputText value="#{approverController.currentDocument.createDate}" title="Дата создания">
-                    <f:convertDateTime pattern="dd.MM.yyyy" />
-                </h:outputText>
-                <h:outputText value="Состояние"/>
-                <h:outputText value="#{approverController.currentDocument.status.name}" title="Состояние"/>
-                <h:outputText value="Автор"/>
-                <h:outputText value="#{approverController.currentDocument.author.name}" title="Автор"/>
-            </h:panelGrid>
+            <p:panel header="Информация о документе">
+                <h:panelGrid columns="2">
+                    <h:outputText value="Название документа"/>
+                    <h:outputText value="#{approverController.currentDocument.name}" title="Название документа"/>
+                    <h:outputText value="Содержимое документа"/>
+                    <p:editor value="#{approverController.currentDocument.content}" disabled="true" class="editor"/>
+                    <h:outputText value="Дата создания"/>
+                    <h:outputText value="#{approverController.currentDocument.createDate}" title="Дата создания">
+                        <f:convertDateTime pattern="dd.MM.yyyy" />
+                    </h:outputText>
+                    <h:outputText value="Состояние"/>
+                    <h:outputText value="#{approverController.currentDocument.status.name}" title="Состояние"/>
+                    <h:outputText value="Автор"/>
+                    <h:outputText value="#{approverController.currentDocument.author.name}" title="Автор"/>
+                </h:panelGrid>
+            </p:panel>
         </h:form>
-        <h:button outcome="index" value="На главную" class="button"/>
+        <p:button outcome="index" value="На главную"/>
     </ui:define>
 </ui:composition>

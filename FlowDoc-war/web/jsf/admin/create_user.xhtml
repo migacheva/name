@@ -3,7 +3,8 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./../template/template.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="title">
         Создание учетной записи сотрудника
@@ -12,22 +13,24 @@
     <ui:define name="header">
         Создание учетной записи сотрудника
     </ui:define>
-    
+
     <ui:define name="content">
         <h:form>
-            <h:panelGrid columns="2">
-                <h:outputLabel value="Имя сотрудника" for="name" />
-                <h:inputText id="name" value="#{adminController.user.name}" title="Имя сотрудника" />
-                <h:outputLabel value="Пароль" for="password" />
-                <h:inputSecret id="passowrd" value="#{adminController.user.password}" title="Пароль" />
-                <h:outputLabel value="Роль" for="role" />
-                <h:selectOneMenu id="role" value="#{adminController.roleId}" title="Роль" >
-                    <f:selectItems value="#{adminController.allRoles}" var="role" 
-                                   itemLabel="#{role.name}" itemValue="#{role.id}"/>
-                </h:selectOneMenu>
-            </h:panelGrid>
-            <h:commandButton action="#{adminController.createUserConfirm()}" value="Создать" class="button"/>
+            <p:panel header="Создание учетной записи сотрудника">
+                <h:panelGrid columns="2">
+                    <p:outputLabel value="Имя сотрудника" for="name" />
+                    <p:inputText id="name" value="#{adminController.user.name}" title="Имя сотрудника" />
+                    <p:outputLabel value="Пароль" for="password" />
+                    <p:password id="password" value="#{adminController.user.password}"/>
+                    <p:outputLabel value="Роль" for="role" />
+                    <p:selectOneMenu id="role" value="#{adminController.roleId}" effect="clip">
+                        <f:selectItems value="#{adminController.allRoles}" var="role" 
+                                       itemLabel="#{role.name}" itemValue="#{role.id}"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+            </p:panel>
+            <p:commandButton action="#{adminController.createUserConfirm()}" value="Создать"/>
         </h:form>
-        <h:button outcome="index" value="Вернуться" class="button"/>
+        <p:button outcome="index" value="Вернуться"/>
     </ui:define>
 </ui:composition>

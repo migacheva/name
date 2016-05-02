@@ -117,6 +117,22 @@ public class FlowDocDAO implements FlowDocDAOLocal {
     }
 
     @Override
+    public List<String> getDocumentsNamesByAuthor(int id, String searchText) {
+        Query query = em.createQuery("SELECT d.name FROM Document d WHERE d.author.id=?1 AND d.name LIKE ?2", Document.class);
+        query.setParameter(1, id);
+        query.setParameter(2, searchText + "%");
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Document> searchDocumentsByAuthor(int id, String searchText) {
+        Query query = em.createQuery("SELECT d FROM Document d WHERE d.author.id=?1 AND d.name LIKE ?2", Document.class);
+        query.setParameter(1, id);
+        query.setParameter(2, searchText + "%");
+        return query.getResultList();
+    }
+
+    @Override
     public List<Document> getDocumentsByApprover(int id) {
         Query query = em.createQuery("SELECT d FROM Document d WHERE d.approver.id=?1", Document.class);
         query.setParameter(1, id);

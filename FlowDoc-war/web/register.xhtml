@@ -3,7 +3,8 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./jsf/template/template.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="title">
         Страница регистрации
@@ -15,19 +16,22 @@
 
     <ui:define name="content">
         <h:form>
-            <h:panelGrid columns="2">
-                <h:outputLabel for="name" value="Представьтесь"/>
-                <h:inputText value="#{authController.userData.name}" id="name"/>
-                <h:outputLabel for="password" value="Пароль назови"/>
-                <h:inputSecret value="#{authController.userData.password}" id="password"/>
-                <h:outputLabel for="role" value="Кто по роли будешь?"/>
-                <h:selectOneMenu value="#{authController.userData.roleName}" id="role">
-                    <f:selectItems value="#{authController.allRoles}" var="role" 
-                                   itemLabel="#{role.name}" itemValue="#{role.name}"/>
-                </h:selectOneMenu>
-                <h:commandButton action="#{authController.register()}" value="Создать мою учетную запись" class="button"/>
-                <h:button outcome="index" value="Авторизоваться" class="button"/>
-            </h:panelGrid>
+            <p:panel header="Регистрация">
+                <h:panelGrid columns="2">
+                    <p:outputLabel for="name" value="Представьтесь"/>
+                    <p:inputText value="#{authController.userData.name}" id="name"/>
+                    <p:outputLabel for="password" value="Пароль назови"/>
+                    <p:password value="#{authController.userData.password}" id="password"/>
+                    <p:outputLabel for="role" value="Кто по роли будешь?"/>
+                    <p:selectOneMenu value="#{authController.userData.roleName}" id="role" 
+                                     effect="clip" style="width: 225px">
+                        <f:selectItems value="#{authController.allRoles}" var="role" 
+                                       itemLabel="#{role.name}" itemValue="#{role.name}"/>
+                    </p:selectOneMenu>
+                    <p:commandButton action="#{authController.register()}" value="Создать мою учетную запись"/>
+                    <p:button outcome="index" value="На страницу авторизации"/>
+                </h:panelGrid>
+            </p:panel>
         </h:form>
     </ui:define>
 </ui:composition>

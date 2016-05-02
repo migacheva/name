@@ -3,7 +3,8 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./../template/template.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="title">
         Редактирование данных о сотруднике
@@ -15,15 +16,17 @@
 
     <ui:define name="content">
         <h:form>
-            <h:panelGrid columns="2">
-                <h:outputLabel value="Роль" for="role" />
-                <h:selectOneMenu id="role" value="#{adminController.roleId}" title="Роль" >
-                    <f:selectItems value="#{adminController.allRoles}" var="role" 
-                                   itemLabel="#{role.name}" itemValue="#{role.id}"/>
-                </h:selectOneMenu>
-            </h:panelGrid>
-            <h:commandButton action="#{adminController.changeUserRoleConfirm()}" value="Сохранить" class="button"/>
+            <p:panel header="Редактирование данных о сотруднике">
+                <h:panelGrid columns="2">
+                    <p:outputLabel value="Роль" for="role" />
+                    <p:selectOneMenu id="role" value="#{adminController.roleId}" effect="clip">
+                        <f:selectItems value="#{adminController.allRoles}" var="role" 
+                                       itemLabel="#{role.name}" itemValue="#{role.id}"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+            </p:panel>
+            <p:commandButton action="#{adminController.changeUserRoleConfirm()}" value="Сохранить" />
         </h:form>
-        <h:button outcome="index" value="Вернуться" class="button"/>
+        <p:button outcome="index" value="Вернуться"/>
     </ui:define>
 </ui:composition>

@@ -3,7 +3,8 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./../template/template.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="title">
         Назначение утверждаюего
@@ -15,15 +16,17 @@
 
     <ui:define name="content">
         <h:form>
-            <h:panelGrid columns="2">
-                <h:outputLabel value="Утверждающий" for="approver" />
-                <h:selectOneMenu id="approver" value="#{planktonController.chosenApproverId}" title="Утверждающий" >
-                    <f:selectItems value="#{planktonController.allApprovers}" var="approver" 
-                                   itemLabel="#{approver.name}" itemValue="#{approver.id}"/>
-                </h:selectOneMenu>
-            </h:panelGrid>
-            <h:commandButton action="#{planktonController.setApproverConfirm()}" value="Назначить" class="button"/>
+            <p:panel header="Назначение утверждающего">
+                <h:panelGrid columns="2">
+                    <p:outputLabel value="Утверждающий" for="approver" />
+                    <p:selectOneMenu id="approver" value="#{planktonController.chosenApproverId}">
+                        <f:selectItems value="#{planktonController.allApprovers}" var="approver" 
+                                       itemLabel="#{approver.name}" itemValue="#{approver.id}"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+            </p:panel>
+            <p:commandButton action="#{planktonController.setApproverConfirm()}" value="Назначить"/>
         </h:form>
-        <h:button outcome="index" value="Вернуться" class="button"/>
+        <p:button outcome="index" value="Вернуться"/>
     </ui:define>
 </ui:composition>

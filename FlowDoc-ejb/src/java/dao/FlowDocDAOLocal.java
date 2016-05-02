@@ -31,6 +31,8 @@ public interface FlowDocDAOLocal {
     void removeOffice(Office office);
     
     List<Document> getDocumentsByAuthor(int id);
+    List<String> getDocumentsNamesByAuthor(int id, String searchText);
+    List<Document> searchDocumentsByAuthor(int id, String searchText);
     List<Document> getDocumentsByApprover(int id);
     Document getDocumentById(int id);
     void createDocument(Document document);

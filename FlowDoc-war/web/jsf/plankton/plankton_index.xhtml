@@ -17,17 +17,33 @@
 
     <ui:define name="content">
         <h:form>
-            <h:panelGrid class="user_data">
-                <h:outputText value="Вы вошли как: #{planktonController.currentUser.name}"/>
-                <h:outputText value="Ваш отдел: #{planktonController.currentUser.office.name}"/>
-                <h:commandButton action="#{authController.logout()}" value="Выйти из учетной записи" class="button"/>
+            <div class="user_data_wrapper">
+                <h:panelGrid class="user_data">
+                    <h:outputText value="Вы вошли как: #{planktonController.currentUser.name}"/>
+                    <h:outputText value="Ваш отдел: #{planktonController.currentUser.office.name}"/>
+                    <p:commandButton action="#{authController.logout()}" value="Выйти из учетной записи"/>
+                </h:panelGrid>
+            </div>
+            <h:panelGrid columns="3">
+                <p:outputLabel value="Найти документ" for="search"/>
+                <p:autoComplete value="#{planktonController.searchText}" minQueryLength="3"
+                                completeMethod="#{planktonController.completeDocumentName}"
+                                id="search"/>
+                <p:commandButton action="#{planktonController.searchDocuments()}" value="Поиск" 
+                                 update="documents"
+                                 />
             </h:panelGrid>
-            <h1>Список документов</h1>
-            <p:dataTable value="#{planktonController.documents}" var="item">
+            <p:dataTable value="#{planktonController.documents}" 
+                         var="item" id="documents" 
+                         emptyMessage="Ни одного документа по запросу не найдено"
+                         class="data_table">
+                <f:facet name="header">
+                    <h:outputText value="Список документов"/>
+                </f:facet>
                 <p:column headerText="Название документа" sortBy="#{item.name}">
-                    <h:commandLink action="#{planktonController.showDocument(item.id)}">
+                    <p:commandLink action="#{planktonController.showDocument(item.id)}">
                         <h:outputText value="#{item.name}"/>
-                    </h:commandLink>
+                    </p:commandLink>
                 </p:column>
                 <p:column headerText="Дата создания" sortBy="#{item.createDate}">
                     <h:outputText value="#{item.createDate}">
@@ -41,34 +57,35 @@
                     <h:outputText value="#{item.approver.name}"/>
                 </p:column>
                 <p:column headerText="Редактирование">
-                    <h:commandButton action="#{planktonController.upateDocument(item.id)}" value="Редактировать" 
-                                     rendered="#{item.status.name eq 'Создан' or item.status.name eq 'Отклонен'}" class="button"/> <!--Если атрибут rendered установлен в true, то элемент отрисовывается-->
+                    <p:commandButton action="#{planktonController.upateDocument(item.id)}" value="Редактировать" 
+                                     rendered="#{item.status.name eq 'Создан' or item.status.name eq 'Отклонен'}" /> <!--Если атрибут rendered установлен в true, то элемент отрисовывается-->
                 </p:column>
                 <p:column headerText="Назначение">
-                    <h:commandButton action="#{planktonController.setApprover(item.id)}" value="Назначить"
-                                     rendered="#{item.status.name eq 'Создан'}" class="button"/>
+                    <p:commandButton action="#{planktonController.setApprover(item.id)}" value="Назначить"
+                                     rendered="#{item.status.name eq 'Создан'}" />
                 </p:column>
                 <p:column headerText="Удаление">
-                    <h:commandButton action="#{planktonController.removeDocument(item.id)}" value="Выбросить"
-                                     rendered="#{item.status.name eq 'Создан'}" class="button"/>
+                    <p:commandButton action="#{planktonController.removeDocument(item.id)}" value="Выбросить"
+                                     rendered="#{item.status.name eq 'Создан'}"/>
                 </p:column>
                 <f:facet name="footer">
-                    <h:commandButton action="#{planktonController.createDocument()}" value="Создать документ" class="button"/>
+                    <p:commandButton action="#{planktonController.createDocument()}" value="Создать документ" />
                 </f:facet>
             </p:dataTable>
         </h:form>
-        <h1>Статистика по документам</h1>
-        <h:panelGrid columns="2" class="statistics statistics_total">
-            <h:outputText value="Подтвержденных документов"/>
-            <h:outputText value="#{planktonController.statistics.approved}"/>
-            <h:outputText value="Отклоненных документов"/>
-            <h:outputText value="#{planktonController.statistics.rejected}"/>
-            <h:outputText value="Документов не отправленных на рассмотрение"/>
-            <h:outputText value="#{planktonController.statistics.created}"/>
-            <h:outputText value="Документов отправленных на рассмотрение"/>
-            <h:outputText value="#{planktonController.statistics.onApprove}"/>
-            <h:outputText value="Всего документов"/>
-            <h:outputText value="#{planktonController.statistics.total}"/>
-        </h:panelGrid>
+        <p:panel header="Статистика по документам">
+            <h:panelGrid columns="2" class="statistics statistics_total">
+                <h:outputText value="Подтвержденных документов"/>
+                <h:outputText value="#{planktonController.statistics.approved}"/>
+                <h:outputText value="Отклоненных документов"/>
+                <h:outputText value="#{planktonController.statistics.rejected}"/>
+                <h:outputText value="Документов не отправленных на рассмотрение"/>
+                <h:outputText value="#{planktonController.statistics.created}"/>
+                <h:outputText value="Документов отправленных на рассмотрение"/>
+                <h:outputText value="#{planktonController.statistics.onApprove}"/>
+                <h:outputText value="Всего документов"/>
+                <h:outputText value="#{planktonController.statistics.total}"/>
+            </h:panelGrid>
+        </p:panel>
     </ui:define>
 </ui:composition>

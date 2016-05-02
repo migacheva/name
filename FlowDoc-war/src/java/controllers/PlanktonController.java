@@ -24,6 +24,7 @@ public class PlanktonController implements Serializable {
     private Document currentDocument;
     private List<Document> documents;
     private int chosenApproverId;
+    private String searchText;
 
     public DocUser getCurrentUser() {
         return authService.getCurrentUser();
@@ -43,6 +44,14 @@ public class PlanktonController implements Serializable {
 
     public void setChosenApproverId(int chosenApproverId) {
         this.chosenApproverId = chosenApproverId;
+    }
+
+    public String getSearchText() {
+        return searchText;
+    }
+
+    public void setSearchText(String searchText) {
+        this.searchText = searchText;
     }
 
     public List<Document> getDocuments() {
@@ -114,7 +123,15 @@ public class PlanktonController implements Serializable {
     public UserDocumentsStatistics getStatistics() {
         return planktonService.getStatisticsByUser(authService.getCurrentUser().getId());
     }
+
+    public List<String> completeDocumentName(String searchText) {
+        return planktonService.getDocumentsNamesByAuthor(authService.getCurrentUser().getId(), searchText);
+    }
     
+    public void searchDocuments() {
+        documents = planktonService.searchDocumentsByAuthor(authService.getCurrentUser().getId(), searchText);
+    }
+
     private void loadDocumetns() {
         documents = planktonService.getDocumentsByAuthor(authService.getCurrentUser().getId());
     }
